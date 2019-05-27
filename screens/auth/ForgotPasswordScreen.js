@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, View, Text, TextInput, Button} from "react-native";
-
+import { StyleSheet, View, Text, TextInput, Button, Alert} from "react-native";
+import * as firebase from "firebase";
 
 export default class ForgotPasswordScreen extends React.Component{
 
@@ -12,7 +12,13 @@ export default class ForgotPasswordScreen extends React.Component{
     }
 
 onResetPasswordPress = () => {
-
+firebase.auth().sendPasswordResetEmail(this.state.email)
+.then(()=> {
+    Alert.alert("Password reset email has been sent.")
+this.props.navigation.navigate("Login")
+}, (error) => {
+    Alert.alert(error.message);
+})
 }
     onBackToLoginPress = () => {
         this.props.navigation.navigate("Login")
@@ -23,10 +29,15 @@ onResetPasswordPress = () => {
             <TextInput 
             style={{width:200, height: 40, borderWidth:1}}
             value={this.state.email}
-            onChangeText={(text) => {this.setState({email:text})}}/>
-
+            onChangeText={(text) => {this.setState({email:text})}}
+            placeholder="Email"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}/>
+<View style={{paddingTop:15}}></View>
             
             <Button title="Reset Password" onPress={this.onResetPasswordPress}/>
+            <View style={{paddingTop:15}}></View>
             <Button title="Back to Login" onPress={this.onBackToLoginPress}/>
         </View>
     }
