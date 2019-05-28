@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, Button, TextInput, Alert,Image, TouchableOpacity} from "react-native";
+import { StyleSheet, View, Text, TextInput, Alert,Image, TouchableOpacity} from "react-native";
 import * as firebase from "firebase";
 import window from "../../constants/Layout"
 
@@ -64,14 +64,14 @@ onForgotPasswordPress = () => {
             
                     <View style={{flexDirection:"row"}}>
                     <TouchableOpacity
-                    style={styles.customBtnBG}
+                    style={styles.plainTextButtonBG}
                     onPress={this.onCreateAccountPress}>
-                    <Text style={styles.customBtnText}>Create Account</Text>
+                    <Text style={styles.plainTextButtonText}>Create Account</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                    style={styles.customBtnBG}
+                    style={styles.plainTextButtonBG}
                     onPress={this.onForgotPasswordPress}>
-                    <Text style={styles.customBtnText}>Forgot Password?</Text>
+                    <Text style={styles.plainTextButtonText}>Forgot Password?</Text>
                     </TouchableOpacity>
               </View>
         </View>
@@ -94,29 +94,24 @@ const styles=  StyleSheet.create(
             width:200
         },
         loginButton:{
-        width:inputWidth,
-        backgroundColor: "#fec105",
-        borderRadius: 30,
-        paddingHorizontal: 30,
-        paddingVertical: 15,
+            width:inputWidth,
+            backgroundColor: "#fec105",
+            borderRadius: 30,
+            paddingHorizontal: 30,
+            paddingVertical: 15,
         },
         loginButtonText:{
             textAlign:"center",
             color:"#ffd"
         },
-          /* Here, style the text of your button */
-            customBtnText: {
-                // fontSize: 20,
-                // fontWeight: '300',
-                color: "#005",
-            },
-        
-          /* Here, style the background of your button */
-            customBtnBG: {
+        plainTextButtonBG: {
             backgroundColor: "#fff",
             paddingHorizontal: 30,
             paddingVertical: 5,
             borderRadius: 30
+            },
+        plainTextButtonText: {
+            color: "#005",
             }
     }
 );

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, TextInput, Button, Alert, Image, TouchableOpacity} from "react-native";
+import { StyleSheet, View, Text, TextInput, Alert, Image, TouchableOpacity} from "react-native";
 import * as firebase from "firebase";
 import window from "../../constants/Layout"
 
@@ -50,9 +50,9 @@ this.props.navigation.navigate("Login")
             <View style={{paddingTop:15}}></View>
 
                     <TouchableOpacity
-                    style={styles.customBtnBG}
+                    style={styles.plainTextButtonBG}
                     onPress={this.onBackToLoginPress}>
-                    <Text style={styles.customBtnText}>Back to Login</Text>
+                    <Text style={styles.plainTextButtonText}>Back to Login</Text>
                     </TouchableOpacity>
 
         </View>
@@ -81,20 +81,19 @@ const styles=  StyleSheet.create({
         paddingHorizontal: 30,
         paddingVertical: 15,
         },
-        loginButtonText:{
-            textAlign:"center",
-            color:"#ffd"
+    loginButtonText:{
+        textAlign:"center",
+        color:"#ffd"
         },
-        customBtnText: {
-            // fontSize: 20,
-            // fontWeight: '300',
-            color: "#005",
+    plainTextButtonBG: {
+        backgroundColor: "#fff",
+        paddingHorizontal: 30,
+        paddingVertical: 5,
+        borderRadius: 30
         },
-        customBtnBG: {
-            backgroundColor: "#fff",
-            paddingHorizontal: 30,
-            paddingVertical: 5,
-            borderRadius: 30
-            }
+
+    plainTextButtonText: {
+        color: "#005",
+        },
 
 });
