@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, Button, TextInput, Alert,Image} from "react-native";
+import { StyleSheet, View, Text, Button, TextInput, Alert,Image, TouchableOpacity} from "react-native";
 import * as firebase from "firebase";
 import window from "../../constants/Layout"
 
@@ -33,6 +33,7 @@ onForgotPasswordPress = () => {
 }
     render(){
         return <View style={{paddingTop:50, alignItems:"center"}}>
+            
             <Image style={styles.imageStyle} source={require("../../assets/images/undraw.png")}/>
             <TextInput 
             style={styles.textInput}
@@ -52,46 +53,70 @@ onForgotPasswordPress = () => {
              secureTextEntry
              autoCapitalize="none"
              autoCorrect={false}/>
+            <View style={{paddingTop:15}}></View>
             
-            <Button title="Login" 
-            onPress={this.onLoginPress}
-            style={styles.buttonStyle}
-            color= "#fec105"/>
-
-            <View style={{paddingTop:15}}></View>
-
-            <Button title="Create Account"
-             onPress={this.onCreateAccountPress}
-             style={styles.buttonStyle}
-             color= "#fec105"/>
-
-            <View style={{paddingTop:15}}></View>
-
-            <Button title="Forgot Password?"
-            onPress={this.onForgotPasswordPress}
-            style={styles.buttonStyle}
-            color= "#fec105"/>
+                    <TouchableOpacity
+                    style={styles.loginButton}
+                    onPress={this.onLoginPress}  >
+                    <Text style={styles.loginButtonText}>Login</Text>
+                    </TouchableOpacity>
+                    <View style={{paddingTop:25}}></View>
+            
+                    <View style={{flexDirection:"row"}}>
+                    <TouchableOpacity
+                    style={styles.customBtnBG}
+                    onPress={this.onCreateAccountPress}>
+                    <Text style={styles.customBtnText}>Create Account</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                    style={styles.customBtnBG}
+                    onPress={this.onForgotPasswordPress}>
+                    <Text style={styles.customBtnText}>Forgot Password?</Text>
+                    </TouchableOpacity>
+              </View>
         </View>
     }
 }
 
+const inputWidth=window.window.width-60;
+
 const styles=  StyleSheet.create(
     {
         textInput: {
-            width:window.window.width,
-            height:50,
-            marginHorizontal: 25,
-            paddingHorizontal: 50,
-            borderRadius: 20,
+            width:inputWidth,
+            borderRadius: 30,
+            paddingHorizontal: 30,
+            paddingVertical: 15,
             borderWidth: 1
-        },
-        buttonStyle:{
-            borderRadius: 25,
-            color: "#fce105"
         },
         imageStyle:{
             height:200,
             width:200
-        }
+        },
+        loginButton:{
+        width:inputWidth,
+        backgroundColor: "#fec105",
+        borderRadius: 30,
+        paddingHorizontal: 30,
+        paddingVertical: 15,
+        },
+        loginButtonText:{
+            textAlign:"center",
+            color:"#ffd"
+        },
+          /* Here, style the text of your button */
+            customBtnText: {
+                // fontSize: 20,
+                // fontWeight: '300',
+                color: "#005",
+            },
+        
+          /* Here, style the background of your button */
+            customBtnBG: {
+            backgroundColor: "#fff",
+            paddingHorizontal: 30,
+            paddingVertical: 5,
+            borderRadius: 30
+            }
     }
 );

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, TextInput, Button, Alert, Image} from "react-native";
+import { StyleSheet, View, Text, TextInput, Button, Alert, Image, TouchableOpacity} from "react-native";
 import * as firebase from "firebase";
 import window from "../../constants/Layout"
 
@@ -67,35 +67,61 @@ export default class SignUpScreen extends React.Component{
              autoCorrect={false}/> 
 
              <View style={{paddingTop:15}}></View>
-
-            <Button 
-            title="Signup" 
-            onPress={this.onSignUpPress}
-            color= "#fec105"/>
+             <TouchableOpacity
+                    style={styles.loginButton}
+                    onPress={this.onSignUpPress}>
+                    <Text style={styles.loginButtonText}>Create Account</Text>
+                    </TouchableOpacity>
 
             <View style={{paddingTop:15}}></View>
 
-            <Button 
-            title="Back to Login" 
-            onPress={this.onBackToLoginPress}
-            color= "#fec105"/>
+                    <TouchableOpacity
+                    style={styles.customBtnBG}
+                    onPress={this.onBackToLoginPress}>
+                    <Text style={styles.customBtnText}>Back to Login</Text>
+                    </TouchableOpacity>
+
         </View>
     }
 }
 
+const inputWidth=window.window.width-60;
 const styles=  StyleSheet.create(
     {
         textInput: {
-            width:window.window.width,
-            height:50,
-            marginHorizontal: 25,
-            paddingHorizontal: 50,
-            borderRadius: 20,
-            borderWidth: 1
+        width:inputWidth,
+        height:50,
+        marginHorizontal: 25,
+        borderRadius: 30,
+        paddingHorizontal: 30,
+        paddingVertical: 15,
+        borderWidth: 1
         },
         imageStyle:{
             height:200,
             width:200
-        }
+        },
+        loginButton:{
+            width:inputWidth,
+            backgroundColor: "#fec105",
+            borderRadius: 30,
+            paddingHorizontal: 30,
+            paddingVertical: 15,
+            },
+            loginButtonText:{
+                textAlign:"center",
+                color:"#ffd"
+            },
+            customBtnText: {
+                // fontSize: 20,
+                // fontWeight: '300',
+                color: "#005",
+            },
+            customBtnBG: {
+                backgroundColor: "#fff",
+                paddingHorizontal: 30,
+                paddingVertical: 5,
+                borderRadius: 30
+                }
     }
 );
