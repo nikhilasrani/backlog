@@ -9,7 +9,7 @@ import * as firebase from "firebase"
 import window from "../constants/Layout"
 export default class Settings extends React.Component {
   static navigationOptions = {
-    header: null,
+   // header: null,
     headerTitle:"Settings"
   };
 
@@ -21,7 +21,7 @@ export default class Settings extends React.Component {
   }
   render() {
     return (
-      <View style={{paddingTop:30}}>
+      <View style={{paddingTop:30, alignItems:"center"}}>
         <Text>Click on the sign out button to sign out</Text>
         <View style={{paddingTop:25}}></View>
         <TouchableOpacity

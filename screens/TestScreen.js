@@ -37,7 +37,7 @@ if(this.state.count<=1){
     let { count } =this.state;
     let nothingHere;
     if(this.state.count<1){
-      nothingHere = <View><Text>There seems to be nothing here! Add an item by selecting one of the options in our menu</Text><Image source={require("../assets/images/Empty.png")} style={styles.imageStyle}/></View>
+      nothingHere = <View style={{alignItems:"center"}}><Text>There seems to be nothing here! Add an item by selecting one of the options in our menu</Text><Image source={require("../assets/images/Empty.png")} style={styles.imageStyle}/></View>
     }
 
     return (
@@ -46,7 +46,7 @@ if(this.state.count<=1){
         <View style={{paddingTop:25}}></View>
         <Text>Counter:{count}</Text>
         <View style={{paddingTop:25}}></View>
-        <View>{nothingHere}</View>
+        <View style={{alignItems:"center"}}>{nothingHere}</View>
         <TouchableOpacity title="+" style={styles.loginButton} onPress={this.incrementCounter}>
         <Text style={styles.loginButtonText}>Increase Count(+)</Text>
         </TouchableOpacity>
