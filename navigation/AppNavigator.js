@@ -4,7 +4,8 @@ import MainTabNavigator from './MainTabNavigator';
 import LoginScreen from "../screens/auth/LoginScreen";
 import SignUpScreen from "../screens/auth/SignUpScreen";
 import ForgotPasswordScreen from "../screens/auth/ForgotPasswordScreen";
-import Welcome from "../screens/WelcomeScreen"
+import Welcome from "../screens/WelcomeScreen";
+import Loading from "../screens/LoadingScreen";
 
 const AppStack = createStackNavigator({ Main: MainTabNavigator});
 
@@ -19,7 +20,8 @@ const AuthStack = createSwitchNavigator({
 export default createAppContainer(createSwitchNavigator({
     App: AppStack,
     Auth: AuthStack,
-    Welcome
+    Welcome,
+    Loading,
 }, {
   initialRouteName: 'Welcome',
 }));
