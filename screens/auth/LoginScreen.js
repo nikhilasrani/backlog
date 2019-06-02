@@ -114,7 +114,8 @@ const styles=  StyleSheet.create(
             borderRadius: 30,
             paddingHorizontal: 30,
             paddingVertical: 15,
-            borderWidth: 1
+            borderWidth: 1,
+            fontFamily:"open-sans"
         },
         imageStyle:{
             resizeMode:'cover',
@@ -130,7 +131,8 @@ const styles=  StyleSheet.create(
         },
         loginButtonText:{
             textAlign:"center",
-            color:"#000"
+            color:"#000",
+            fontFamily:"open-sans"
         },
         plainTextButtonBG: {
             backgroundColor: "#fff",
@@ -140,6 +142,7 @@ const styles=  StyleSheet.create(
             },
         plainTextButtonText: {
             color: "#000",
+            fontFamily:"open-sans"
             },
             facebookLoginButton:{
                 width:inputWidth,
@@ -150,7 +153,8 @@ const styles=  StyleSheet.create(
             },
             facebookLoginButtonText:{
                 textAlign:"center",
-                color:"#fff"
+                color:"#fff",
+                fontFamily:"open-sans"
             }
             
     }

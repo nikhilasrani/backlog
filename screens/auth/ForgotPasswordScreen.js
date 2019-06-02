@@ -26,10 +26,10 @@ this.props.navigation.navigate("Login")
             }
     render(){
         return <View style={{paddingTop:50, alignItems:"center"}}>
-            <Text> Forgot Password?</Text>
+            <Text style={{fontFamily:'open-sans', textAlign:"center", fontSize:26}}> Forgot Password?</Text>
             <Image  style={styles.imageStyle} 
             source={require("../../assets/images/ForgotPassword.png")}/>
-            <Text style={{textAlign:"center"}}> Enter your email address and we will send a password reset link to you!</Text>
+            <Text style={{textAlign:"center",fontFamily:'open-sans'}}> Enter your email address and we will send a password reset link to you!</Text>
             <View style={{paddingTop:15}}></View>
             <TextInput 
             style={styles.textInput}
@@ -68,7 +68,8 @@ const styles=  StyleSheet.create({
         borderRadius: 30,
         paddingHorizontal: 30,
         paddingVertical: 15,
-        borderWidth: 1
+        borderWidth: 1,
+        fontFamily:'open-sans'
     },
     imageStyle:{
         height:200,
@@ -83,7 +84,8 @@ const styles=  StyleSheet.create({
         },
     loginButtonText:{
         textAlign:"center",
-        color:"#000"
+        color:"#000",
+        fontFamily:'open-sans'
         },
     plainTextButtonBG: {
         backgroundColor: "#fff",
@@ -94,6 +96,7 @@ const styles=  StyleSheet.create({
 
     plainTextButtonText: {
         color: "#000",
+        fontFamily:'open-sans'
         },
 
 });

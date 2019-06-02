@@ -22,7 +22,7 @@ export default class Settings extends React.Component {
   render() {
     return (
       <View style={{flex:1,paddingTop:30, alignItems:"center", backgroundColor:"#fff"}}>
-        <Text>Click on the sign out button to sign out</Text>
+        <Text style={{fontFamily:'open-sans'}}>Click on the sign out button to sign out</Text>
         <View style={{paddingTop:25}}></View>
         <TouchableOpacity
                     style={styles.loginButton}
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     },
     loginButtonText:{
         textAlign:"center",
-        color:"#000"
+        color:"#000",
+        fontFamily:'open-sans'
     },
 });

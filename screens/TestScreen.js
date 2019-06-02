@@ -37,14 +37,14 @@ if(this.state.count<=1){
     let { count } =this.state;
     let nothingHere;
     if(this.state.count<1){
-      nothingHere = <View style={{alignItems:"center"}}><Text>There seems to be nothing here! Add an item by selecting one of the options in our menu</Text><Image source={require("../assets/images/Empty.png")} style={styles.imageStyle}/></View>
+      nothingHere = <View style={{alignItems:"center"}}><Text style={styles.textStyle}>There seems to be nothing here! Add an item by selecting one of the options in our menu</Text><Image source={require("../assets/images/Empty.png")} style={styles.imageStyle}/></View>
     }
 
     return (
       <View style={{paddingTop:30, alignItems:"center"}}>
-        <Text>Nothing here image will render as long as counter is less than 1</Text>
+        <Text style={styles.textStyle}>Nothing here image will render as long as counter is less than 1</Text>
         <View style={{paddingTop:25}}></View>
-        <Text>Counter:{count}</Text>
+        <Text style={styles.textStyle}>Counter:{count}</Text>
         <View style={{paddingTop:25}}></View>
         <View style={{alignItems:"center"}}>{nothingHere}</View>
         <TouchableOpacity title="+" style={styles.loginButton} onPress={this.incrementCounter}>
@@ -64,6 +64,9 @@ if(this.state.count<=1){
 
 const inputWidth=window.window.width-60;
 const styles = StyleSheet.create({
+  textStyle:{
+    fontFamily:'open-sans'
+  },
   imageStyle:{
     height:200,
     width:200
@@ -77,6 +80,7 @@ loginButton:{
 },
 loginButtonText:{
   textAlign:"center",
-  color:"#000"
+  color:"#000",
+  fontFamily:"open-sans"
 },
 });
