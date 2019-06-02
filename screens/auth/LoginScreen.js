@@ -54,7 +54,7 @@ onForgotPasswordPress = () => {
 }
         render(){
         return <View style={{paddingTop:50, alignItems:"center"}}>
-                    <Image style={styles.imageStyle} source={require("../../assets/images/undraw.png")}/>
+                    <Image style={styles.imageStyle} source={require("../../assets/images/AppLogoFull.png")}/>
                     <TextInput 
                         style={styles.textInput}
                         value={this.state.email}
@@ -98,7 +98,7 @@ onForgotPasswordPress = () => {
               <TouchableOpacity
                     style={styles.facebookLoginButton}
                     onPress={()=>this.loginWithFacebook()}  >
-                    <Text style={styles.loginButtonText}>Login with Facebook</Text>
+                    <Text style={styles.facebookLoginButtonText}>Login with Facebook</Text>
                     </TouchableOpacity>
                     <View style={{paddingTop:25}}></View>
         </View>
@@ -117,8 +117,9 @@ const styles=  StyleSheet.create(
             borderWidth: 1
         },
         imageStyle:{
-            height:200,
-            width:200
+            resizeMode:'cover',
+            width:inputWidth,
+            height:300
         },
         loginButton:{
             width:inputWidth,
@@ -129,7 +130,7 @@ const styles=  StyleSheet.create(
         },
         loginButtonText:{
             textAlign:"center",
-            color:"#ffd"
+            color:"#000"
         },
         plainTextButtonBG: {
             backgroundColor: "#fff",
@@ -138,7 +139,7 @@ const styles=  StyleSheet.create(
             borderRadius: 30
             },
         plainTextButtonText: {
-            color: "#005",
+            color: "#000",
             },
             facebookLoginButton:{
                 width:inputWidth,
@@ -146,6 +147,10 @@ const styles=  StyleSheet.create(
                 borderRadius: 30,
                 paddingHorizontal: 30,
                 paddingVertical: 15,
+            },
+            facebookLoginButtonText:{
+                textAlign:"center",
+                color:"#fff"
             }
             
     }

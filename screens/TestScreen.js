@@ -77,6 +77,6 @@ loginButton:{
 },
 loginButtonText:{
   textAlign:"center",
-  color:"#ffd"
+  color:"#000"
 },
 });

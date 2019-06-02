@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,Button
+  View,
 } from 'react-native';
 import * as firebase from "firebase"
 import window from "../constants/Layout"
@@ -21,7 +21,7 @@ export default class Settings extends React.Component {
   }
   render() {
     return (
-      <View style={{paddingTop:30, alignItems:"center"}}>
+      <View style={{flex:1,paddingTop:30, alignItems:"center", backgroundColor:"#fff"}}>
         <Text>Click on the sign out button to sign out</Text>
         <View style={{paddingTop:25}}></View>
         <TouchableOpacity
@@ -49,6 +49,6 @@ const styles = StyleSheet.create({
     },
     loginButtonText:{
         textAlign:"center",
-        color:"#ffd"
+        color:"#000"
     },
 });

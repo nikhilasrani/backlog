@@ -110,7 +110,7 @@ const styles=  StyleSheet.create(
             },
         loginButtonText:{
             textAlign:"center",
-            color:"#ffd"
+            color:"#000"
             },
         plainTextButtonBG: {
             backgroundColor: "#fff",
@@ -119,7 +119,7 @@ const styles=  StyleSheet.create(
             borderRadius: 30
             },
         plainTextButtonText: {
-            color: "#005",
+            color: "#000",
             },
     }
 );
