@@ -17,8 +17,8 @@ generateToken = async () => {
         transitionAnimationDuration={100}
         subTitleStyles={{ fontSize: 20 }}
         bottomBarHighlight={false}
-        titleStyles={{fontFamily:"open-sans"}}
-        subTitleStyles={{fontFamily:"open-sans"}}
+        titleStyles={{}}
+        subTitleStyles={{}}
         pages={[
           {
               backgroundColor:"#ffffff",

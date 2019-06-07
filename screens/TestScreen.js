@@ -47,12 +47,15 @@ if(this.state.count<=1){
         <Text style={styles.textStyle}>Counter:{count}</Text>
         <View style={{paddingTop:25}}></View>
         <View style={{alignItems:"center"}}>{nothingHere}</View>
-        <TouchableOpacity title="+" style={styles.loginButton} onPress={this.incrementCounter}>
-        <Text style={styles.loginButtonText}>Increase Count(+)</Text>
+        <View style={{flexDirection:"row"}}>
+        <TouchableOpacity style={styles.roundButton} onPress={this.incrementCounter}>
+        <Text style={styles.loginButtonText}>+</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.loginButton} onPress={this.decrementCounter}>
-        <Text style={styles.loginButtonText}>Decrease Count(-)</Text>
+        <Text>{count}</Text>
+        <TouchableOpacity style={styles.roundButton} onPress={this.decrementCounter}>
+        <Text style={styles.loginButtonText}>-</Text>
         </TouchableOpacity>
+        </View>
         <View style={{paddingTop:25}}></View>
         
       </View>
@@ -65,7 +68,6 @@ if(this.state.count<=1){
 const inputWidth=window.window.width-60;
 const styles = StyleSheet.create({
   textStyle:{
-    fontFamily:'open-sans'
   },
   imageStyle:{
     height:200,
@@ -81,6 +83,11 @@ loginButton:{
 loginButtonText:{
   textAlign:"center",
   color:"#000",
-  fontFamily:"open-sans"
 },
+roundButton:{
+  backgroundColor: "#fec105",
+  borderRadius: 100,
+  height:50,
+  width:50
+}
 });

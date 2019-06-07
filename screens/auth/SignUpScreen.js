@@ -32,7 +32,7 @@ export default class SignUpScreen extends React.Component{
 
     render(){
         return <View style={{paddingTop:50, alignItems:"center"}}>
-<Text style={{fontFamily:'open-sans'}}>Sign Up with your details below</Text>
+<Text>Sign Up with your details below</Text>
 <View style={{paddingTop:15}}></View>
             <Image  style={styles.imageStyle} 
             source={require("../../assets/images/Fingerprint.png")}/>
@@ -96,7 +96,6 @@ const styles=  StyleSheet.create(
             paddingHorizontal: 30,
             paddingVertical: 15,
             borderWidth: 1,
-            fontFamily:'open-sans'
             },
         imageStyle:{
             height:200,
@@ -112,7 +111,6 @@ const styles=  StyleSheet.create(
         loginButtonText:{
             textAlign:"center",
             color:"#000",
-            fontFamily:'open-sans'
             },
         plainTextButtonBG: {
             backgroundColor: "#fff",
@@ -122,7 +120,6 @@ const styles=  StyleSheet.create(
             },
         plainTextButtonText: {
             color: "#000",
-            fontFamily:'open-sans'
             },
     }
 );

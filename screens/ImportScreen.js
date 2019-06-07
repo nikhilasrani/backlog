@@ -7,12 +7,32 @@ import {
 } from 'react-native';
 import * as firebase from "firebase"
 import window from "../constants/Layout"
-export default class Settings extends React.Component {
+export default class ImportScreen extends React.Component {
   static navigationOptions = {
    // header: null,
-    headerTitle:"Settings"
+    headerTitle:"Upload"
   };
-
+  constructor(props){
+    super(props);
+    this.state = {
+      loggedIn: false
+    }
+  }
+componentDidMount = () => {
+var that = this;
+firebase.auth().onAuthStateChanged(function(user){
+  if(user){
+    //Logged In
+that.setState({
+  isAuthenticated:true
+})
+  }
+  else{
+    //Not logged in
+    isAuthenticated:false
+  }
+})
+}
   onSignoutPress = () => {
     firebase.auth().signOut()
     .then(()=> {
@@ -22,16 +42,25 @@ export default class Settings extends React.Component {
   render() {
     return (
       <View style={{flex:1,paddingTop:30, alignItems:"center", backgroundColor:"#fff"}}>
-        <Text>Click on the sign out button to sign out</Text>
+        {this.state.loggedIn == true ? (
+        //User is logged in
+          <View><Text>Click on the sign out button to sign out</Text>
         <View style={{paddingTop:25}}></View>
         <TouchableOpacity
                     style={styles.loginButton}
                     onPress={this.onSignoutPress}  >
                     <Text style={styles.loginButtonText}>Signout</Text>
                     </TouchableOpacity>
-                    <View style={{paddingTop:25}}></View>
+                    <View style={{paddingTop:25}}></View></View>
+        ) : (/*User is not Logged In*/ 
+          <View>
+            <Text>You are not logged in </Text>
+            <Text> Please login to be able to Upload </Text>
+            </View>)
+        }
+        
       </View>
-    );
+    )
   }
 
 

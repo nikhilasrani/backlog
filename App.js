@@ -22,15 +22,11 @@ export default class App extends React.Component {
     firebase.auth().onAuthStateChanged(this.onAuthStateChanged);
   }
  
-  componentDidMount() {
-    Font.loadAsync({
-      'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
-    });
-  }
 
   onAuthStateChanged = (user) => {
     this.setState({isAuthenticationReady: true});
     this.setState({isAuthenticated: !!user});
+    console.log(user)
   }
 
   render() {
