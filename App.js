@@ -1,8 +1,7 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View,AsyncStorage } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
-import AppScreen from "./navigation/MainTabNavigator";
 import ApiKeys from "./constants/ApiKeys";
 import * as firebase from "firebase";
 
@@ -26,7 +25,17 @@ export default class App extends React.Component {
   onAuthStateChanged = (user) => {
     this.setState({isAuthenticationReady: true});
     this.setState({isAuthenticated: !!user});
-    console.log(user)
+    console.log(user);
+    if(user){
+    console.log(user.displayName);
+    console.log(user.email);
+    }
+    if(user && user!==null){
+    AsyncStorage.setItem("isAuthenticated","true")
+    }
+    else{
+    AsyncStorage.setItem("isAuthenticated","false");
+    }
   }
 
   render() {

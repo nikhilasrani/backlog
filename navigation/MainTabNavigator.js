@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, AsyncStorage } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import AddButton from "../components/AddButton"
 import TabBarIcon from '../components/TabBarIcon';

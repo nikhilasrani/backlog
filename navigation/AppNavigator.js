@@ -13,6 +13,9 @@ const AppStack = createStackNavigator({ Main: MainTabNavigator});
 const hasVisitedOnBoarding = async () => {
   await AsyncStorage.getItem("hasVisited")
 }
+const hasBeenAuthenticated = async () => {
+  await AsyncStorage.getItem("isAuthenticated")
+}
 
 const AuthStack = createSwitchNavigator({ 
   Login:{screen:LoginScreen},
@@ -27,5 +30,5 @@ export default createAppContainer(createSwitchNavigator({
     Welcome,
     Loading,
 }, {
-  initialRouteName: hasVisitedOnBoarding?'Auth':'Welcome'
+  initialRouteName: (hasVisitedOnBoarding?(hasBeenAuthenticated?'App':'Auth'):'Welcome')
 }));

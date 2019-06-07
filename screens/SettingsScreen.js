@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  AsyncStorage
 } from 'react-native';
 import * as firebase from "firebase"
 import window from "../constants/Layout"
@@ -19,6 +20,7 @@ export default class Settings extends React.Component {
       this.setState({isAuthenticated: false});
       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
       this.props.navigation.navigate("Auth")})
+      AsyncStorage.setItem("isAuthenticated","false");
   }
   render() {
     return (
