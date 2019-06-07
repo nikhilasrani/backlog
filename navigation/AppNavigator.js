@@ -1,5 +1,6 @@
+import React from "react";
+import {AsyncStorage} from "react-native"
 import { createAppContainer, createSwitchNavigator, createStackNavigator } from 'react-navigation';
-
 import MainTabNavigator from './MainTabNavigator';
 import LoginScreen from "../screens/auth/LoginScreen";
 import SignUpScreen from "../screens/auth/SignUpScreen";
@@ -9,6 +10,9 @@ import Loading from "../screens/LoadingScreen";
 
 const AppStack = createStackNavigator({ Main: MainTabNavigator});
 
+const hasVisitedOnBoarding = async () => {
+  await AsyncStorage.getItem("hasVisited")
+}
 
 const AuthStack = createSwitchNavigator({ 
   Login:{screen:LoginScreen},
@@ -23,5 +27,5 @@ export default createAppContainer(createSwitchNavigator({
     Welcome,
     Loading,
 }, {
-  initialRouteName: 'Welcome',
+  initialRouteName: hasVisitedOnBoarding?'Auth':'Welcome'
 }));
