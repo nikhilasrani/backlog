@@ -28,5 +28,5 @@ export const bubbleColor = '#fec105';
 
 // Animate Constants
 export const animateTime = 800;
-export const easingType = Easing.out(Easing.exp);
+export const easingType = Easing.inOut(Easing.exp);
 export const delay = 200;

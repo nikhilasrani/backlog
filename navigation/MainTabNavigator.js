@@ -13,70 +13,12 @@ import ExportScreen from "../screens/ExportScreen";
 import {Feather} from "@expo/vector-icons"
 const size = 26;
 
-const HomeStack = createStackNavigator({
-  Test: TestScreen,
-  
-});
-
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios'? `ios-home`:'md-home'}
-    />
-  ),
-};
-
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
-});
-
-SettingsStack.navigationOptions = {
-  title: 'Settings',
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-person' : 'md-person'}
-    />
-  ),
-};
-
-const ImportStack = createStackNavigator({
-  Import: ImportScreen,
-});
-
-ImportStack.navigationOptions = {
-  title: 'Import',
-  tabBarLabel: 'Import',
-  tabBarIcon: ({focused}) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-add-circle-outline' : 'md-add-circle-outline'}
-    />
-  ),
-};
-
-const ExportStack = createStackNavigator({
-  Export: ExportScreen,
-});
-
-ExportStack.navigationOptions = {
-  title: 'Export',
-  tabBarLabel: 'Export',
-  tabBarIcon: ({focused}) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle'}
-    />
-  ),
-};
 
 const RouteConfig = {
   HomeStack: {
     screen: TestScreen,
     navigationOptions: () => ({
+      tabBarLabel: 'Home',
       tabBarIcon: ({ tintColor }) => (
 				<Feather
 					name="home"
@@ -86,9 +28,11 @@ const RouteConfig = {
     )
   })
 },
-ImportStack:{
+Import:{
   screen:ImportScreen,
   navigationOptions: () => ({
+  title: 'Import',
+  tabBarLabel: 'Import',
     tabBarIcon:({tintColor}) => (
       <Feather
 					name="server"
@@ -101,10 +45,13 @@ ImportStack:{
     screen: TestScreen,
     navigationOptions: () => ({
       tabBarButtonComponent: () => (
-        <AddButton/>)})},
-  ExportStack:{
+        <AddButton/>)})
+      },
+  Export:{
     screen:ExportScreen,
           navigationOptions: () => ({
+            title: 'Export',
+            tabBarLabel: 'Export',
             tabBarIcon:({tintColor}) => (
               <Feather
                   name="search"
@@ -116,6 +63,8 @@ ImportStack:{
           SettingsStack: {
             screen:SettingsScreen,
             navigationOptions: () => ({
+              title: 'Settings',
+              tabBarLabel: 'Settings',
               tabBarIcon:({tintColor}) => (
                 <Feather
                     name="user"
@@ -127,9 +76,12 @@ ImportStack:{
 }
 
 const BottomNavigatorConfig = {
+  navigationOptions: {
+    header: null,
+  },
 	tabBarOptions: {
 		activeTintColor: '#000',
-		inactiveTintColor: 'rgb(89, 102, 139)',
+		inactiveTintColor: 'rgb(200, 200, 200)',
 		style: {
 			backgroundColor: '#fff',
 		},
@@ -138,26 +90,3 @@ const BottomNavigatorConfig = {
 };
 
 export default createBottomTabNavigator(RouteConfig, BottomNavigatorConfig);
-
-/*export default createBottomTabNavigator({
-  HomeStack,
-  ImportStack,
-  Add: {
-    screen: TestScreen,
-    navigationOptions: () => ({
-      tabBarButtonComponent: () => (
-        <AddButton/>)})},
-        ExportStack,
-        SettingsStack,
-},{tabBarOptions: {
-  activeTintColor: '#000',
-  labelStyle: {
-    fontSize: 12,
-  },
-  style: {
-    backgroundColor: '#fff',
-  },
-},navigationOptions:{
-  header: null,
-}});
-*/
