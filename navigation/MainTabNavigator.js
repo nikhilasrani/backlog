@@ -10,7 +10,7 @@ import ExportScreen from "../screens/ExportScreen";
 
 
 // import icons
-import FAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import {Feather} from "@expo/vector-icons"
 const size = 26;
 
 const HomeStack = createStackNavigator({
@@ -78,7 +78,7 @@ const RouteConfig = {
     screen: TestScreen,
     navigationOptions: () => ({
       tabBarIcon: ({ tintColor }) => (
-				<FAwesomeIcon
+				<Feather
 					name="home"
 					color={tintColor}
 					size={size}
@@ -90,8 +90,8 @@ ImportStack:{
   screen:ImportScreen,
   navigationOptions: () => ({
     tabBarIcon:({tintColor}) => (
-      <FAwesomeIcon
-					name="download"
+      <Feather
+					name="server"
 					color={tintColor}
 					size={size}
 				/>
@@ -106,8 +106,8 @@ ImportStack:{
     screen:ExportScreen,
           navigationOptions: () => ({
             tabBarIcon:({tintColor}) => (
-              <FAwesomeIcon
-                  name="upload"
+              <Feather
+                  name="search"
                   color={tintColor}
                   size={size}
                 />
@@ -117,7 +117,7 @@ ImportStack:{
             screen:SettingsScreen,
             navigationOptions: () => ({
               tabBarIcon:({tintColor}) => (
-                <FAwesomeIcon
+                <Feather
                     name="user"
                     color={tintColor}
                     size={size}

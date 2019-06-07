@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Animated, Easing, View, StyleSheet } from 'react-native';
-import FAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import {Feather} from "@expo/vector-icons"
 
 // constants
 import {
@@ -168,7 +168,7 @@ class AddButton extends Component {
 								],
 							}}
 						>
-							<FAwesomeIcon
+							<Feather
 								name="plus"
 								size={35}
 								color="#000"
@@ -212,10 +212,10 @@ class AddButton extends Component {
 						},
 					]}
 				>
-					<FAwesomeIcon
-						name="camera"
-						size={20}
-						color="#000"
+					<Feather 
+					name="link"
+					size={20}
+					color="#000"
 					/>
 				</Animated.View>
 				<Animated.View
@@ -248,8 +248,8 @@ class AddButton extends Component {
 						},
 					]}
 				>
-					<FAwesomeIcon
-						name="video-camera"
+					<Feather
+						name="file-text"
 						size={20}
 						color="#000"
 					/>
@@ -290,8 +290,8 @@ class AddButton extends Component {
 						},
 					]}
 				>
-					<FAwesomeIcon
-						name="pencil"
+					<Feather
+						name="image"
 						size={20}
 						color="#000"
 					/>
