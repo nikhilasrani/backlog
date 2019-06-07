@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import * as firebase from "firebase"
 import window from "../constants/Layout"
-export default class ImportScreen extends React.Component {
+export default class ExportScreen extends React.Component {
   static navigationOptions = {
    // header: null,
     headerTitle:"Upload"
@@ -43,7 +43,7 @@ export default class ImportScreen extends React.Component {
   render() {
     return (
       <View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
-        <Text>Import Screen</Text>
+        <Text>Export Screen</Text>
       </View>
       // <View style={{flex:1,paddingTop:30, alignItems:"center", backgroundColor:"#fff"}}>
       //   {this.state.loggedIn == true ? (
