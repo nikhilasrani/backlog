@@ -58,7 +58,7 @@ export default createBottomTabNavigator({
   ImportStack,
   SettingsStack,
 },{tabBarOptions: {
-  activeTintColor: '#fec105',
+  activeTintColor: '#000',
   labelStyle: {
     fontSize: 12,
   },

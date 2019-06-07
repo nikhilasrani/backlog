@@ -16,7 +16,8 @@ export default class Settings extends React.Component {
   onSignoutPress = () => {
     firebase.auth().signOut()
     .then(()=> {
-      this.setState({isAuthenticated: false})
+      this.setState({isAuthenticated: false});
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
       this.props.navigation.navigate("Auth")})
   }
   render() {
