@@ -61,18 +61,20 @@ Import:{
             )
           })},
           SettingsStack: {
-            screen:SettingsScreen,
+            screen:createStackNavigator({SettingsScreen,
             navigationOptions: () => ({
-              title: 'Settings',
-              tabBarLabel: 'Settings',
-              tabBarIcon:({tintColor}) => (
-                <Feather
-                    name="user"
-                    color={tintColor}
-                    size={size}
-                  />)})
+              headerTitle: 'Profile',
+            })
+          },
+          ),navigationOptions: () => ({
+            tabBarLabel: 'Profile',
+            tabBarIcon:({tintColor}) => (
+              <Feather
+                  name="user"
+                  color={tintColor}
+                  size={size}
+                />)})
           }
-        
 }
 
 const BottomNavigatorConfig = {
