@@ -27,6 +27,16 @@ export default class App extends React.Component {
     this.setState({isAuthenticated: !!user});
     console.log(user);
     if(user){
+      firebase.database().ref(`users/${user.uid}`).set({
+        name: user.displayName,
+        email:user.email,
+        id:user.uid,
+        photoURL:user.photoURL,
+        emailVerified:user.emailVerified
+      }).then(()=>{
+        console.log("FIREBASE DATA HAS BEEN SET!")
+      }).catch((error)=> console.log(error))
+      AsyncStorage.setItem("id", user.uid).then((err)=> console.log(err));
     console.log(user.displayName);
     console.log(user.email);
     }

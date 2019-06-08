@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from 'react-native';
 import * as firebase from "firebase"
 import window from "../constants/Layout"
@@ -23,6 +24,15 @@ export default class Settings extends React.Component {
       AsyncStorage.setItem("isAuthenticated","false");
   }
   render() {
+    var user = firebase.auth().currentUser;
+    var name, email, photoUrl, uid, emailVerified;
+
+  if (user != null) {
+  name = user.displayName;
+  email = user.email;
+  photoUrl = user.photoURL;
+  emailVerified = user.emailVerified;
+  uid = user.uid; }
     return (
       <View style={{flex:1,paddingTop:30, alignItems:"center", backgroundColor:"#fff"}}>
         <Text>Click on the sign out button to sign out</Text>
@@ -32,7 +42,11 @@ export default class Settings extends React.Component {
                     onPress={this.onSignoutPress}  >
                     <Text style={styles.loginButtonText}>Signout</Text>
                     </TouchableOpacity>
-                    <View style={{paddingTop:25}}></View>
+                    <View style={{paddingTop:25}}>
+                      <Text>{name}</Text>
+                      <Text>{email}</Text>
+                      <Image style={styles.imageStyle} source={{uri:photoUrl}}/>
+                    </View>
       </View>
     );
   }
@@ -54,4 +68,9 @@ const styles = StyleSheet.create({
         textAlign:"center",
         color:"#000",
     },
+    imageStyle:{
+      height:50,
+      width:50,
+      borderRadius:25
+    }
 });
