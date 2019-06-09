@@ -11,12 +11,36 @@ import {
 import * as firebase from "firebase"
 import window from "../constants/Layout"
 import {Feather} from "@expo/vector-icons"
+import Modal from 'react-native-modal';
+
 
 export default class Settings extends React.Component {
   static navigationOptions = {
    // header: null,
     title:"Profile"
   };
+  state = {
+    visibleModal: null,
+  };
+
+  _renderButton = (text, onPress) => (
+    <TouchableOpacity style={styles.loginButton} onPress={onPress}>
+        <Text style={styles.loginButtonText}>{text}</Text>
+    </TouchableOpacity>
+  );
+  _renderModalContent = () => (
+    <View style={styles.modalContent}>
+      <Text style={{fontSize:18,fontWeight:"bold"}}>Credits</Text>
+      <Text>This Application is built using Open Source Software and Freely Licensed Illustrations and Graphics</Text>
+      <Image style={{height:250, width:250}} source={require("../assets/images/OpenSource.png")}/>
+      <Text>We would like to thank the respective creators for their work and contributions</Text>
+      <Text>Illustrations: undraw.co</Text>
+      <Text>Icons: Feather Icons</Text>
+
+
+      {this._renderButton('Close', () => this.setState({ visibleModal: null }))}
+    </View>
+  );
 
   onSignoutPress = () => {
     firebase.auth().signOut()
@@ -73,10 +97,20 @@ export default class Settings extends React.Component {
                     style={styles.loginButton}
                     onPress={this.onSignoutPress}  >
                     <Text style={styles.loginButtonText}>Logout</Text>
-                    </TouchableOpacity></View>  
+                    </TouchableOpacity>
                     <View style={{paddingTop:25}}>
-                      
+                    <TouchableOpacity
+                    style={styles.loginButton}
+                    onPress={() => this.setState({ visibleModal: 1 })}>
+                    <Text style={styles.loginButtonText}>View Credits</Text>
+                    </TouchableOpacity>
+                    </View>  
+                    <View style={{paddingTop:25}}>
+                      </View>
                     </View>
+                    <Modal isVisible={this.state.visibleModal === 1}>
+                    {this._renderModalContent()}
+        </Modal>
       </View>
     );
   }
@@ -102,5 +136,31 @@ const styles = StyleSheet.create({
       height:50,
       width:50,
       borderRadius:25
-    }
+    },
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    button: {
+      backgroundColor: 'lightblue',
+      padding: 12,
+      margin: 16,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 4,
+      borderColor: 'rgba(0, 0, 0, 0.1)',
+    },
+    modalContent: {
+      backgroundColor: 'white',
+      padding: 22,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 4,
+      borderColor: 'rgba(0, 0, 0, 0.1)',
+    },
+    bottomModal: {
+      justifyContent: 'flex-end',
+      margin: 0,
+    },
 });
