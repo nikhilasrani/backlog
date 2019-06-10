@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Animated, Easing, View, StyleSheet } from 'react-native';
+import { TouchableOpacity, Animated, Easing, View, StyleSheet,Text } from 'react-native';
+import Modal from "react-native-modal"
 import {Feather} from "@expo/vector-icons"
 
 // constants
@@ -20,287 +21,87 @@ import {
 // other buttons and their animations
 class AddButton extends Component {
 
-	constructor(props) {
-		super(props);
-		this.animatedValue = new Animated.Value(0);
-		this.topLeftValue = new Animated.Value(0);
-		this.topCenterValue = new Animated.Value(0);
-		this.topRightValue = new Animated.Value(0);
-		this.state = {
-			pressed: false,
-		};
-	}
+	state = {
+		visibleModal: null,
+	  };
 
-	handleAddButtonPress = () => {
-		let { pressed } = this.state;
-		if(pressed) {
-			this.animateReverse(0);
-		}
-		else {
-			this.animate(1);
-		}
-		this.setState({pressed: !pressed});
-	}
+	_renderButton = (text, onPress) => (
+		<TouchableOpacity onPress={onPress}>
+		  <View style={styles.button}>
+			<Text>{text}</Text>
+		  </View>
+		</TouchableOpacity>
+	  );
+	
+	  _renderModalContent = () => (
+		<View style={styles.modalContent}>
+		  <Text>Hello!</Text>
+		  {this._renderButton('Close', () => this.setState({ visibleModal: null }))}
+		</View>
+	  );
+	
 
-	animate = (toValue) => {
-		Animated.stagger(delay,[
-			Animated.parallel([
-				Animated.timing(
-					this.animatedValue,
-					{
-						toValue,
-						duration: animateTime,
-						easing: Easing.exp,
-					}
-				),
-				Animated.timing(
-					this.topLeftValue,
-					{
-						toValue,
-						duration: animateTime,
-						easing: easingType,
-					}
-				),
-			]),
-			Animated.timing(
-				this.topCenterValue,
-				{
-					toValue,
-					duration: animateTime,
-					easing: easingType,
-				}
-			),
-			Animated.timing(
-				this.topRightValue,
-				{
-					toValue,
-					duration: animateTime,
-					easing: easingType,
-				}
-			),
-		]).start();
-	}
-
-	animateReverse = (toValue) => {
-		Animated.stagger(delay,[
-			Animated.timing(
-				this.topRightValue,
-				{
-					toValue,
-					duration: animateTime,
-					easing: easingType,
-				}
-			),
-			Animated.timing(
-				this.topCenterValue,
-				{
-					toValue,
-					duration: animateTime,
-					easing: easingType,
-				}
-			),
-			Animated.parallel([
-				Animated.timing(
-					this.animatedValue,
-					{
-						toValue,
-						duration: animateTime,
-						easing: easingType,
-					}
-				),
-				Animated.timing(
-					this.topLeftValue,
-					{
-						toValue,
-						duration: animateTime,
-						easing: easingType,
-					}
-				),
-			]),
-		]).start();
-	}
+	
+	
 
 	render() {
 
-		let springValue = Animated.add(Animated.add(this.topLeftValue, this.topRightValue), this.topCenterValue);
-
 		return (
 			<View>
-				<Animated.View
-					style={[
-						style.bigBubble,
-						{
-							transform: [
-								{
-									rotateZ: springValue.interpolate({
-										inputRange: [0, 1, 2, 3],
-										outputRange: ['-45deg', '-45deg', '0deg', '45deg'],
-									}),
-								},
-								{
-									scaleY: springValue.interpolate({
-										inputRange: [0, 0.65, 1, 1.65, 2, 2.65, 3],
-										outputRange: [1, 1.1, 1, 1.1, 1, 1.1, 1],
-									}),
-								},
-							],
-						},
-					]}
-				>
-					<TouchableOpacity
+				<TouchableOpacity
 						hitSlop={{
 							left: 20,
 							right: 20,
 							top: 20,
 							bottom: 20,
 						}}
-						onPress={this.handleAddButtonPress}
+						onPress={ () => this.setState({ visibleModal: 1 })}
+						style={style.bigBubble}
 					>
-						<Animated.View
-							style={{
-								transform: [
-									{
-										rotateZ: springValue.interpolate({
-											inputRange: [0, 1, 2, 3],
-											outputRange: ['45deg', '45deg', '45deg', '0deg'],
-										}),
-									},
-								],
-							}}
-						>
-							<Feather
+						<Feather
 								name="plus"
 								size={35}
 								color="#000"
 							/>
-						</Animated.View>
 					</TouchableOpacity>
-				</Animated.View>
-				<Animated.View
-					style={[
-						style.smallBubble,
-						{
-							position: 'absolute',
-							transform: [
-								{
-									translateX: this.topLeftValue.interpolate({
-										inputRange: [0, 1],
-										outputRange: [center.left, topLeft.left],
-									}),
-								},
-								{
-									translateY: this.topLeftValue.interpolate({
-										inputRange: [0, 1],
-										outputRange: [center.top, topLeft.top],
-									}),
-								},
-								{
-									rotateZ: this.topLeftValue.interpolate({
-										inputRange: [0, 0.6, 1],
-										outputRange: ['-90deg', '-45deg', '0deg'],
-									}),
-								},
-								{
-									scaleY: this.topLeftValue.interpolate({
-										inputRange: [0, 0.8, 0.9, 1],
-										outputRange: [1, 1.5, 1.5, 1],
-									}),
-								},
-							],
-							opacity: this.topLeftValue,
-							zIndex: -1,
-						},
-					]}
-				>
-					<Feather 
-					name="link"
-					size={20}
-					color="#000"
-					/>
-				</Animated.View>
-				<Animated.View
-					style={[
-						style.smallBubble,
-						{
-							position: 'absolute',
-							transform: [
-								{
-									translateX: this.topCenterValue.interpolate({
-										inputRange: [0, 1],
-										outputRange: [center.left, topCenter.left],
-									}),
-								},
-								{
-									translateY: this.topCenterValue.interpolate({
-										inputRange: [0, 1],
-										outputRange: [center.top, topCenter.top],
-									}),
-								},
-								{
-									scaleY: this.topCenterValue.interpolate({
-										inputRange: [0, 0.8, 0.9, 1],
-										outputRange: [1, 1.5, 1.5, 1],
-									}),
-								},
-							],
-							opacity: this.topCenterValue,
-							zIndex: -1,
-						},
-					]}
-				>
-					<Feather
-						name="file-text"
-						size={20}
-						color="#000"
-					/>
-				</Animated.View>
-				<Animated.View
-					style={[
-						style.smallBubble,
-						{
-							position: 'absolute',
-							transform: [
-								{
-									translateX: this.topRightValue.interpolate({
-										inputRange: [0, 1],
-										outputRange: [center.left, topRight.left],
-									}),
-								},
-								{
-									translateY: this.topRightValue.interpolate({
-										inputRange: [0, 1],
-										outputRange: [center.top, topRight.top],
-									}),
-								},
-								{
-									rotateZ: this.topRightValue.interpolate({
-										inputRange: [0, 0.6, 1],
-										outputRange: ['90deg', '45deg', '0deg'],
-									}),
-								},
-								{
-									scaleY: this.topRightValue.interpolate({
-										inputRange: [0, 0.8, 0.9, 1],
-										outputRange: [1, 1.5, 1.5, 1],
-									}),
-								},
-							],
-							opacity: this.topRightValue,
-							zIndex: -1,
-						},
-					]}
-				>
-					<Feather
-						name="image"
-						size={20}
-						color="#000"
-					/>
-				</Animated.View>
-			</View>
+					<View style={styles.container}>
+		{this._renderButton('Default modal', () => this.setState({ visibleModal: 1 }))}
+		<Modal isVisible={this.state.visibleModal === 1}>
+          {this._renderModalContent()}
+        </Modal>
+			</View></View>
 		);
 	}
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: 'lightblue',
+    padding: 12,
+    margin: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  bottomModal: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+});
 const style = StyleSheet.create({
 	bigBubble: {
 		justifyContent: 'center',
