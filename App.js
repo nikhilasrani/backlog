@@ -27,7 +27,7 @@ export default class App extends React.Component {
     this.setState({isAuthenticated: !!user});
     console.log(user);
     if(user){
-      firebase.database().ref(`users/${user.uid}`).set({
+      firebase.database().ref(`users/${user.uid}`).update({
         name: user.displayName,
         email:user.email,
         id:user.uid,
