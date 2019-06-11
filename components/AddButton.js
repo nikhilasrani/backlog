@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Animated, Easing, View, StyleSheet,Text } from 'react-native';
+import { TouchableOpacity, Animated, Easing, View, StyleSheet,Text, TextInput } from 'react-native';
 import Modal from "react-native-modal"
 import {Feather} from "@expo/vector-icons"
+import * as firebase from "firebase";
 
 // constants
 import {
@@ -22,21 +23,64 @@ import {
 class AddButton extends Component {
 
 	state = {
+		enteredLink: "",
 		visibleModal: null,
 	  };
 
-	_renderButton = (text, onPress) => (
+	_onSubmitLinkPress = (text, onPress) => (
 		<TouchableOpacity onPress={onPress}>
 		  <View style={styles.button}>
 			<Text>{text}</Text>
 		  </View>
 		</TouchableOpacity>
 	  );
+	  _renderCloseButton = (text, onPress) => (
+		<TouchableOpacity onPress={onPress}>
+		  
+		  <Feather
+                  name="x"
+				  color="#A5A8B0"
+				  size={30}
+                />
+		</TouchableOpacity>
+	  );
 	
 	  _renderModalContent = () => (
 		<View style={styles.modalContent}>
-		  <Text>Hello!</Text>
-		  {this._renderButton('Close', () => this.setState({ visibleModal: null }))}
+			 <View style={{position:"absolute",top:0, right:0}}>{this._renderCloseButton('Close', () => this.setState({ visibleModal: null }))}</View>
+		  <Text>Paste the link you want to save here</Text>
+		  <TextInput value={this.state.enteredLink}
+             onChangeText={(text) => {this.setState({enteredLink:text})}}
+             placeholder="Entered Link..."
+             autoCapitalize="none"
+             autoCorrect={false}
+			 selectionColor={"#fec105"}
+			 style={{
+				width:250,
+				borderRadius: 30,
+				paddingHorizontal: 30,
+				paddingVertical: 15,
+				borderBottomWidth:1
+			 }}
+			 ></TextInput>
+		  {this._onSubmitLinkPress('Submit Link', () => {
+			  var user = firebase.auth().currentUser;
+			  const {enteredLink} =this.state;
+			 if(enteredLink){
+			 firebase.database().ref(`users/${user.uid}/savedLinks/`).push({
+				 link:enteredLink
+			 }).then((data)=>{
+				 //success callback
+				 console.log('data '+data)
+				 this.setState({enteredLink:""});
+			 }).catch((error)=> {
+				 //error callback
+				 console.log('error '+error)
+			 }) 
+			}
+			 
+			  this.setState({ visibleModal: null })
+		})}
 		</View>
 	  );
 	
@@ -45,7 +89,8 @@ class AddButton extends Component {
 	
 
 	render() {
-
+		var user = firebase.auth().currentUser;
+		var name, email, photoUrl, uid, emailVerified;
 		return (
 			<View>
 				<TouchableOpacity
@@ -65,7 +110,7 @@ class AddButton extends Component {
 							/>
 					</TouchableOpacity>
 					<View style={styles.container}>
-		{this._renderButton('Default modal', () => this.setState({ visibleModal: 1 }))}
+		{this._onSubmitLinkPress('Default modal', () => this.setState({ visibleModal: 1 }))}
 		<Modal isVisible={this.state.visibleModal === 1}>
           {this._renderModalContent()}
         </Modal>
@@ -81,12 +126,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: 'lightblue',
+    backgroundColor: '#fec105',
     padding: 12,
     margin: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 4,
+    borderRadius: 50,
     borderColor: 'rgba(0, 0, 0, 0.1)',
   },
   modalContent: {
