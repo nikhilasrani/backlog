@@ -15,19 +15,21 @@ const size = 26;
 
 
 const RouteConfig = {
-  HomeStack: {
-    screen: TestScreen,
+  HomeStack:{
+    screen:createStackNavigator({TestScreen,
     navigationOptions: () => ({
-      tabBarLabel: 'Home',
-      tabBarIcon: ({ tintColor }) => (
-				<Feather
-					name="home"
-					color={tintColor}
-					size={size}
-				/>
-    )
-  })
-},
+      headerTitle: 'Home',
+    })
+  },
+  ),navigationOptions: () => ({
+    tabBarLabel: 'Home',
+    tabBarIcon:({tintColor}) => (
+      <Feather
+          name="home"
+          color={tintColor}
+          size={size}
+        />)})
+  },
 Import:{
   screen:ImportScreen,
   navigationOptions: () => ({

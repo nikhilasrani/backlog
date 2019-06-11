@@ -9,8 +9,8 @@ import window from "../constants/Layout"
 
 export default class TestScreen extends React.Component {
   static navigationOptions = {
-    header: null,
-    headerTitle:"Home"
+    //header: null,
+    title:"Home"
   };
   constructor(props){
     super(props);
