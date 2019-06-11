@@ -111,6 +111,7 @@ const style = StyleSheet.create({
 		width: bigBubbleSize,
 		borderRadius: bigBubbleSize / 2,
 		top: -30,
+		left:25
 	},
 	smallBubble: {
 		justifyContent: 'center',
