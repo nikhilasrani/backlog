@@ -6,6 +6,7 @@ import {
   View,Button,Image
 } from 'react-native';
 import window from "../constants/Layout"
+import * as firebase from "firebase"
 
 export default class TestScreen extends React.Component {
   static navigationOptions = {
@@ -15,7 +16,8 @@ export default class TestScreen extends React.Component {
   constructor(props){
     super(props);
     this.state= {
-      count:0
+      count:0,
+      links:[]
     }
   }
   incrementCounter= () => {
@@ -29,6 +31,18 @@ export default class TestScreen extends React.Component {
     })
   }
 
+  componentDidMount(){
+    var user = firebase.auth().currentUser;
+    var name, email, photoUrl, uid, emailVerified;
+    if (user != null) {
+      firebase.database().ref(`users/${user.uid}/savedLinks/`).once('value', function(snapshot){
+        console.log(snapshot.val());
+        //^ Firebase response as a JSON Object
+        const linksToArray =Object.entries(snapshot.val()).map(item => ({...item[1], key: item[0]}));
+        console.log(linksToArray);
+        // ^ JSON Object converted to an Array of Objects with the unique value as a key
+      })}
+  }
   nothingHere() {
 if(this.state.count<=1){
   return <Image source={require("../assets/images/Empty.png")} style={styles.imageStyle}/>
