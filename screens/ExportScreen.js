@@ -4,84 +4,95 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Image
 } from 'react-native';
 import * as firebase from "firebase"
-import window from "../constants/Layout"
+import window from "../constants/Layout";
+
 export default class ExportScreen extends React.Component {
+
   static navigationOptions = {
-   // header: null,
     headerTitle:"Upload"
   };
+
   constructor(props){
     super(props);
-    this.state = {
-      loggedIn: false
+    this.state= {
+      count:0,
+      links:[]
     }
   }
-// componentDidMount = () => {
-// var that = this;
-// firebase.auth().onAuthStateChanged(function(user){
-//   if(user){
-//     //Logged In
-// that.setState({
-//   isAuthenticated:true
-// })
-//   }
-//   else{
-//     //Not logged in
-//     that.setState({isAuthenticated:false})
-    
-//   }
-// })
-// }
-//   onSignoutPress = () => {
-//     firebase.auth().signOut()
-//     .then(()=> {
-//       this.setState({isAuthenticated: false})
-//       this.props.navigation.navigate("Auth")})
-//   }
-  render() {
-    return (
-      <View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
-        <Text>Export Screen</Text>
-      </View>
-      // <View style={{flex:1,paddingTop:30, alignItems:"center", backgroundColor:"#fff"}}>
-      //   {this.state.loggedIn == true ? (
-      //   //User is logged in
-      //     <View><Text>Click on the sign out button to sign out</Text>
-      //   <View style={{paddingTop:25}}></View>
-      //   <TouchableOpacity
-      //               style={styles.loginButton}
-      //               onPress={this.onSignoutPress}  >
-      //               <Text style={styles.loginButtonText}>Signout</Text>
-      //               </TouchableOpacity>
-      //               <View style={{paddingTop:25}}></View></View>
-      //   ) : (/*User is not Logged In*/ 
-      //     <View>
-      //       <Text>You are not logged in </Text>
-      //       <Text> Please login to be able to Upload </Text>
-      //       </View>)
-      //   }
-        
-      // </View>
-    )
+
+  incrementCounter= () => {
+    this.setState({
+      count:this.state.count+1
+    })
   }
 
-
-}
-
-const inputWidth=window.window.width-60;
-
-const styles = StyleSheet.create({
+  decrementCounter= () => {
+    this.setState({
+      count:this.state.count-1
+    })
+  }
+  nothingHere() {
+    if(this.state.count<=1){
+      return <Image source={require("../assets/images/Empty.png")} style={styles.imageStyle}/>
+    }}
+      render() {
+        let { count } =this.state;
+        let nothingHere;
+        if(this.state.count<1){
+          nothingHere = <View style={{alignItems:"center"}}><Text style={styles.textStyle}>There seems to be nothing here! Add an item by selecting one of the options in our menu</Text><Image source={require("../assets/images/Empty.png")} style={styles.imageStyle}/></View>
+        }
+    
+        return (
+          <View style={{paddingTop:30, alignItems:"center"}}>
+            <Text style={styles.textStyle}>Nothing here image will render as long as counter is less than 1</Text>
+            <View style={{paddingTop:25}}></View>
+            <Text style={styles.textStyle}>Counter:{count}</Text>
+            <View style={{paddingTop:25}}></View>
+            <View style={{alignItems:"center"}}>{nothingHere}</View>
+            <View style={{flexDirection:"row"}}>
+            <TouchableOpacity style={styles.roundButton} onPress={this.incrementCounter}>
+            <Text style={styles.loginButtonText}>+</Text>
+            </TouchableOpacity>
+            <Text>{count}</Text>
+            <TouchableOpacity style={styles.roundButton} onPress={this.decrementCounter}>
+            <Text style={styles.loginButtonText}>-</Text>
+            </TouchableOpacity>
+            </View>
+            <View style={{paddingTop:25}}></View>
+            
+          </View>
+        );
+      }
+    
+    
+    }
+    
+    const inputWidth=window.window.width-60;
+    const styles = StyleSheet.create({
+      textStyle:{
+      },
+      imageStyle:{
+        height:200,
+        width:200
+    },
     loginButton:{
-        width:inputWidth,
-        backgroundColor: "#fec105",
-        borderRadius: 30,
-        paddingHorizontal: 30,
-        paddingVertical: 15,
+      width:inputWidth,
+      backgroundColor: "#fec105",
+      borderRadius: 30,
+      paddingHorizontal: 30,
+      paddingVertical: 15,
     },
     loginButtonText:{
-        textAlign:"center",
-        color:"#000",
+      textAlign:"center",
+      color:"#000",
     },
-});
+    roundButton:{
+      backgroundColor: "#fec105",
+      borderRadius: 100,
+      height:50,
+      width:50
+    }
+    });
