@@ -3,19 +3,13 @@ import { TouchableOpacity, Animated, Easing, View, StyleSheet,Text, TextInput } 
 import Modal from "react-native-modal"
 import {Feather} from "@expo/vector-icons"
 import * as firebase from "firebase";
+import LinkPreview from 'react-native-link-preview';
 
 // constants
 import {
-	center,
-	topCenter,
-	topLeft,
-	topRight,
 	bigBubbleSize,
 	smallBubbleSize,
-	bubbleColor,
-	animateTime,
-	easingType,
-	delay,
+	bubbleColor,	
 } from '../constants/BottomTabPositioningAnimations';
 
 // This is the add button that appears in the middle along with
@@ -67,16 +61,20 @@ class AddButton extends Component {
 			  var user = firebase.auth().currentUser;
 			  const {enteredLink} =this.state;
 			 if(enteredLink){
-			 firebase.database().ref(`users/${user.uid}/savedLinks/`).push({
-				 link:enteredLink
-			 }).then((data)=>{
-				 //success callback
-				 console.log('data '+data)
-				 this.setState({enteredLink:""});
-			 }).catch((error)=> {
-				 //error callback
-				 console.log('error '+error)
-			 }) 
+				LinkPreview.getPreview(enteredLink.toString())
+				.then(data => {
+					firebase.database().ref(`users/${user.uid}/savedLinks/`).push({
+						link:data
+					}).then((data)=>{
+						//success callback
+						console.log('data '+data)
+						this.setState({enteredLink:""});
+					}).catch((error)=> {
+						//error callback
+						console.log('error '+error)
+					}) 
+				});
+			
 			}
 			 
 			  this.setState({ visibleModal: null })

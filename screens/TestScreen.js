@@ -80,7 +80,7 @@ _fetchUserLinks = () => {
       <View style={{paddingTop:30, alignItems:"center"}}>
         <FlatList
         data={this.state.links}
-        renderItem={({item})=><Text>{item.link}</Text>}
+        renderItem={({item})=><Text>{item.link.url}</Text>}
         keyExtractor={(item,index)=>item.key}
         refreshing={this.state.refreshing}
         onRefresh={this.handleRefresh}
