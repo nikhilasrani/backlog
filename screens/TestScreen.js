@@ -73,14 +73,29 @@ _fetchUserLinks = () => {
         that.setState({links:linksToArray,loading:false, refreshing:false});
       })}
 }
+_renderItem = ({item}) => {
+  switch(item.link.mediaType){
+    case 'article':
+      //Twitter tweets shared from the UI
+     return  <View style={styles.cardStyle}><Text>{item.link.description}</Text></View>
+    case 'image':
+    case 'video':
+    case 'website':
+    case 'application':
+    case 'audio':
+    
+    default:
+      return <View style={{paddingVertical:20}}><Text>{item.link.url}</Text></View>
+  }
+
+}
 
   render() {
-
     return (
       <View style={{paddingTop:30, alignItems:"center"}}>
         <FlatList
         data={this.state.links}
-        renderItem={({item})=><Text>{item.link.url}</Text>}
+        renderItem={this._renderItem}
         keyExtractor={(item,index)=>item.key}
         refreshing={this.state.refreshing}
         onRefresh={this.handleRefresh}
@@ -118,5 +133,19 @@ roundButton:{
   borderRadius: 100,
   height:50,
   width:50
+},
+cardStyle: {
+  borderWidth: 1,
+  borderRadius: 2,
+  borderColor: "#ddd",
+  borderBottomWidth: 0,
+  shadowColor: "#000",
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.1,
+  shadowRadius: 2,
+  elevation: 1,
+  marginLeft: 5,
+  marginRight: 5,
+  marginTop: 10
 }
 });
