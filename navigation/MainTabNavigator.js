@@ -2,7 +2,6 @@ import React from 'react';
 import { Platform, AsyncStorage } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import AddButton from "../components/AddButton"
-import TabBarIcon from '../components/TabBarIcon';
 import TestScreen from '../screens/TestScreen';
 import SettingsScreen from "../screens/SettingsScreen";
 import ImportScreen from "../screens/ImportScreen";

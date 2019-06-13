@@ -37,6 +37,7 @@ export default class TestScreen extends React.Component {
     if(!this.state.loading) return <View style={{paddingTop:35}}></View>;
     return(
       <View style={{paddingVertical:30,}}>
+
         <ActivityIndicator animating size="large"/>
       </View>
     )
@@ -73,7 +74,7 @@ _renderItem = ({item}) => {
     
   //Checking if the link is Twitter 
   if(url.substring(0,15)==='https://twitter'){
-    return <Card containerStyle={{borderRadius:8}}>
+    return <Card containerStyle={styles.cardStyle}>
       <View style={{flexDirection:"row", justifyContent:"space-between"}}>
         <View style={{flexDirection:"row"}}>
           <Image style={{height:40,width:40, borderRadius:8}} source={{uri:item.link.images[0]}}/>
@@ -85,12 +86,12 @@ _renderItem = ({item}) => {
       </Card>
   }
 
-  //Checking if the link is Reddit
-  if(url.substring(0,18)==='https://www.reddit'){
+  //Checking if the link is Reddit and is an image mediatype
+  if(url.substring(0,18)==='https://www.reddit' && item.link.mediaType==='image'){
     var hyphen= item.link.title.indexOf("-");
     var subreddit = item.link.title.substring(0,hyphen-1);
     var redditTitle = item.link.title.substring(hyphen+2,item.link.title.length);
-    return <Card containerStyle={{borderRadius:8}}>
+    return <Card containerStyle={styles.cardStyle}>
       <View style={{flexDirection:"row", justifyContent:"space-between"}}>
         <View style={{}}>
           <Text style={{paddingHorizontal:12, fontWeight:"bold", fontSize:16}}>{subreddit}</Text>
@@ -102,17 +103,79 @@ _renderItem = ({item}) => {
       </Card>
   }
 
+   //Checking if the link is Reddit and is a website mediatype
+   if(url.substring(0,18)==='https://www.reddit' && item.link.mediaType==='website'){
+    var hyphen= item.link.title.indexOf("-");
+    var subreddit = item.link.title.substring(0,hyphen-1);
+    var redditTitle = item.link.title.substring(hyphen+2,item.link.title.length);
+    return <Card containerStyle={styles.cardStyle}>
+      <View style={{flexDirection:"row", justifyContent:"space-between"}}>
+        <View style={{flexDirection:"row"}}>
+          <Image style={{height:40,width:40, borderRadius:8}} source={{uri:item.link.images[0]}}/>
+          <Text style={{paddingHorizontal:12, fontWeight:"bold", fontSize:16}}>{subreddit}</Text>
+        </View>
+      <MaterialCommunityIcons name="reddit" size={20}	color="#FF5700"/>
+      </View>
+      <Text style={{paddingVertical:15, color:"#000", fontSize:20,textAlign:"center"}}>{redditTitle}</Text>
+      
+      </Card>
+  }
+  
+//Checking if the link is a song from Apple Music
+if(url.substring(0,19)==='https://music.apple' && item.link.mediaType==='music.song'){
+  return <Card containerStyle={styles.cardStyle}>
+      <View style={{flexDirection:"row", justifyContent:"space-between"}}>
+        <View style={{flexDirection:"row",flex:1, flexWrap:"wrap"}}>
+          <Text style={{ fontWeight:"bold", fontSize:16}}>{item.link.title}</Text>
+        </View>
+      <MaterialCommunityIcons name="apple" size={20}/><Text>MUSIC</Text>
+      </View>
+      <Image style={{height:200,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>
+      <Text style={{paddingTop:10, color:"#000"}}>{item.link.description.substring(0,item.link.description.indexOf("."))}</Text>
+      </Card>
+}
+
+//Checking if the link is a song from Spotify
+if(url.substring(0,20)==='https://open.spotify' && item.link.mediaType==='music.song'){
+  return <Card containerStyle={styles.cardStyle}>
+      <View style={{flexDirection:"row", justifyContent:"space-between", paddingBottom:15}}>
+        <View style={{flexDirection:"row",flex:1, flexWrap:"wrap"}}>
+          <Text style={{ fontWeight:"bold", fontSize:16}}>{item.link.title}</Text>
+        </View>
+      <MaterialCommunityIcons name="spotify" size={20} color="#1db954"/>
+      </View>
+      <Image style={{height:200,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>
+      <Text style={{paddingTop:10, color:"#000"}}>{item.link.description.substring(0,item.link.description.length-11)}</Text>
+      </Card>
+}
+
 
 
   switch(item.link.mediaType){
     case 'article':
-      //Twitter tweets shared from the UI
-     return  <Card title={item.link.title} image={{uri:item.link.images[0]}}><Text>{item.link.description}</Text></Card>
+     return  <Card containerStyle={styles.cardStyle}>
+       <View style={{flexDirection:"row", justifyContent:"space-between"}}>
+        <View style={{flexDirection:"row", flex:1, flexWrap:"wrap"}}>
+          <Text style={{fontWeight:"bold", fontSize:16}}>{item.link.title}</Text>
+        </View>
+        <Image style={{height:20,width:20}} source={{uri:item.link.favicons[0]}}/>
+       </View>
+       <Image style={{height:200,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>
+       <Text>{item.link.description}</Text>
+       </Card>
     case 'image':
-        return  <Card title={item.link.title} image={{uri:item.link.images[0]}}><Text>{item.link.description}</Text></Card>
+        return  <Card containerStyle={styles.cardStyle} title={item.link.title} image={{uri:item.link.images[0]}}><Text>{item.link.description}</Text></Card>
     case 'video':
     case 'website':
-        return  <Card title={item.link.title}><Text>{item.link.description}</Text></Card>
+        return  <Card containerStyle={styles.cardStyle}>
+        <View style={{flexDirection:"row", justifyContent:"space-between"}}>
+         <View style={{flexDirection:"row", flex:1, flexWrap:"wrap"}}>
+           <Text style={{ fontWeight:"bold", fontSize:16}}>{item.link.title}</Text>
+         </View>
+         <Image style={{height:20,width:20}} source={{uri:item.link.favicons[0]}}/>
+        </View>
+        <Text>{item.link.description}</Text>
+        </Card>
     case 'application':
     case 'audio':
     
@@ -125,7 +188,7 @@ _renderItem = ({item}) => {
 
   render() {
     return (
-      <View style={{paddingTop:30, alignItems:"center"}}>
+      <View style={{ alignItems:"center", backgroundColor:"#e2e1e0"}}>
         <FlatList
         data={this.state.links}
         renderItem={this._renderItem}
@@ -173,12 +236,12 @@ cardStyle: {
   borderColor: "#ddd",
   borderBottomWidth: 0,
   shadowColor: "#000",
-  shadowOffset: { width: 0, height: 2 },
-  shadowOpacity: 0.1,
-  shadowRadius: 2,
-  elevation: 1,
+  shadowOffset: { width: 0, height: 9 },
+  shadowOpacity: 0.8,
+  shadowRadius: 12.35,
+  elevation: 19,
   marginLeft: 5,
   marginRight: 5,
-  marginTop: 10
+  marginTop: 10,
 }
 });
