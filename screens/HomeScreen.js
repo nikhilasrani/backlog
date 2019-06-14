@@ -3,16 +3,14 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,Button,Image, FlatList, ActivityIndicator
+  View,Image, FlatList, ActivityIndicator
 } from 'react-native';
 import * as firebase from "firebase"
-import {Card} from "react-native-elements";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ListItem from "../components/ListItem";
+import window from "../constants/Layout"
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    //header: null,
     title:"Home"
   };
 
@@ -139,7 +137,7 @@ const styles = StyleSheet.create({
     alignItems:"center"
 },
 loadingViewStyle: {
-    paddingTop:inputHeight,
+    paddingTop:75,
     justifyContent: 'center',
     alignItems: 'center',
   },
