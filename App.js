@@ -1,3 +1,7 @@
+import './fixtimerbug';
+ //Fixed Yellow Warning Box about having long timeouts without setInterval
+ //Known bug in integrating Firebase as it requires high timeout intervals
+ // to enable an hourly refresh of the auth/access token
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View,AsyncStorage } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
