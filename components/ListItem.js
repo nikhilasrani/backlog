@@ -69,7 +69,7 @@ export default ListItem = ({item}) => {
     }
     
   //Checking if the link is a song from Apple Music
-  if(url.substring(0,19)==='https://music.apple' && item.link.mediaType==='music.song'){
+  if(url.substring(0,19)==='https://music.apple' && (item.link.mediaType==='music.song'||item.link.mediaType==='music.album')){
     return <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}>
       <Card containerStyle={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
