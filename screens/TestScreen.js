@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   View,Button,Image, FlatList, ActivityIndicator
 } from 'react-native';
-import window from "../constants/Layout"
 import * as firebase from "firebase"
 import {Card} from "react-native-elements";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -61,6 +60,9 @@ _fetchUserLinks = () => {
       return firebase.database().ref(`users/${user.uid}/savedLinks/`).once('value', function(snapshot){
         console.log(snapshot.val());
         //^ Firebase response as a JSON Object
+        if(!snapshot.val()){
+        return;
+        }
         const linksToArray =Object.entries(snapshot.val()).map(item => ({...item[1], key: item[0]}));
         console.log(linksToArray);
       
@@ -149,6 +151,20 @@ if(url.substring(0,20)==='https://open.spotify' && item.link.mediaType==='music.
       </Card>
 }
 
+//Checking if a link is from Instagram
+
+if(url.substring(0,21)==='https://www.instagram' && item.link.mediaType==='photo'){
+  return <Card containerStyle={styles.cardStyle}>
+  <View style={{flexDirection:"row", justifyContent:"space-between", paddingBottom:15}}>
+    <View style={{flexDirection:"row",flex:1, flexWrap:"wrap"}}>
+      <Text style={{ fontWeight:"bold"}}>{item.link.title.substring(item.link.title.indexOf(":")+2,item.link.title.length-1)}</Text>
+    </View>
+  <Image source={{uri:item.link.favicons[0]}} style={{height:20,width:20}}/>
+  </View>
+  <Image style={{height:306,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>
+  <Text style={{paddingTop:10, color:"#000"}}>{item.link.description}</Text>
+  </Card>
+}
 
 
   switch(item.link.mediaType){
@@ -165,9 +181,9 @@ if(url.substring(0,20)==='https://open.spotify' && item.link.mediaType==='music.
        </Card>
     case 'image':
         return  <Card containerStyle={styles.cardStyle} title={item.link.title} image={{uri:item.link.images[0]}}><Text>{item.link.description}</Text></Card>
-    case 'video':
+    
     case 'website':
-        return  <Card containerStyle={styles.cardStyle}>
+      return  <Card containerStyle={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
          <View style={{flexDirection:"row", flex:1, flexWrap:"wrap"}}>
            <Text style={{ fontWeight:"bold", fontSize:16}}>{item.link.title}</Text>
@@ -176,28 +192,51 @@ if(url.substring(0,20)==='https://open.spotify' && item.link.mediaType==='music.
         </View>
         <Text>{item.link.description}</Text>
         </Card>
+
+
+    case 'video':
     case 'application':
     case 'audio':
     
     default:
-      return <View style={{paddingVertical:20}}><Text>{item.link.url}</Text></View>
+      return <Card style={styles.containerStyle}><View style={{paddingVertical:20}}><Text>{item.link.url}</Text></View></Card>
   }
 
 }
 
+_renderList = () => {
+if(this.state.links.length){
+  return <FlatList
+  data={this.state.links}
+  renderItem={this._renderItem}
+  keyExtractor={(item,index)=>item.key}
+  refreshing={this.state.refreshing}
+  onRefresh={this.handleRefresh}
+  ListFooterComponent={this.renderFooter}
+  />
+}
+
+return <View style={{justifyContent: 'center', alignItems: 'center'}}>
+  <Text style={{fontSize:16, color:"#b3b3b3", paddingTop:15}}>No Saved Links</Text>
+  <Image style={{height:300, width:300, resizeMode:"contain"}} source={require("../assets/images/Empty.png")}/>
+  <Text style={{paddingVertical:15, fontSize:22, fontWeight:"bold"}}>Empty List</Text>
+  <Text style={{fontSize:16, color:"#b3b3b3", paddingHorizontal:45,textAlign:"center"}}>
+    Add a link using the '+' button below or refresh the feed to fetch your saved links
+    </Text>
+    <View style={{paddingTop:25}}></View>
+    <TouchableOpacity
+                    style={styles.loginButton}
+                    onPress={this.handleRefresh}>
+                    <Text style={styles.loginButtonText}>Refresh Feed</Text>
+                    </TouchableOpacity>
+
+</View>
+}
 
   render() {
     return (
-      <View style={{ alignItems:"center", backgroundColor:"#e2e1e0"}}>
-        <FlatList
-        data={this.state.links}
-        renderItem={this._renderItem}
-        keyExtractor={(item,index)=>item.key}
-        refreshing={this.state.refreshing}
-        onRefresh={this.handleRefresh}
-        ListFooterComponent={this.renderFooter}
-        
-        />
+      <View style={{ alignItems:"center"}}>
+        {this._renderList()}
       </View>
     );
   }
@@ -205,7 +244,7 @@ if(url.substring(0,20)==='https://open.spotify' && item.link.mediaType==='music.
 
 }
 
-const inputWidth=window.window.width-60;
+
 const styles = StyleSheet.create({
   textStyle:{
   },
@@ -214,7 +253,6 @@ const styles = StyleSheet.create({
     width:200
 },
 loginButton:{
-  width:inputWidth,
   backgroundColor: "#fec105",
   borderRadius: 30,
   paddingHorizontal: 30,
