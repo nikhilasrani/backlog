@@ -10,7 +10,7 @@ import {Card} from "react-native-elements";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ListItem from "../components/ListItem";
 
-export default class TestScreen extends React.Component {
+export default class HomeScreen extends React.Component {
   static navigationOptions = {
     //header: null,
     title:"Home"

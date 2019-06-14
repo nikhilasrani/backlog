@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform, AsyncStorage } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import AddButton from "../components/AddButton"
-import TestScreen from '../screens/TestScreen';
+import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from "../screens/SettingsScreen";
 import ImportScreen from "../screens/ImportScreen";
 import ExportScreen from "../screens/ExportScreen";
@@ -15,7 +15,7 @@ const size = 26;
 
 const RouteConfig = {
   HomeStack:{
-    screen:createStackNavigator({TestScreen,
+    screen:createStackNavigator({HomeScreen,
     navigationOptions: () => ({
       headerTitle: 'Home',
     })
@@ -43,7 +43,7 @@ Import:{
     )
   })},
   Add: {
-    screen: TestScreen,
+    screen: HomeScreen,
     navigationOptions: () => ({
       tabBarButtonComponent: () => (
         <AddButton/>)})
