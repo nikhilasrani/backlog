@@ -11,7 +11,7 @@ import {
 
 
 
-export const ListItem = (item) => {
+export default ListItem = ({item}) => {
     var url=item.link.url.toString();
     
       
