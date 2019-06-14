@@ -3,7 +3,7 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
-    View,Button,Image, FlatList, ActivityIndicator
+    View,Button,Image, FlatList, ActivityIndicator, Linking
   } from 'react-native';
   import * as firebase from "firebase"
   import {Card} from "react-native-elements";
@@ -17,7 +17,7 @@ export default ListItem = ({item}) => {
       
     //Checking if the link is Twitter 
     if(url.substring(0,15)==='https://twitter'){
-      return <Card containerStyle={styles.cardStyle}>
+      return <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}><Card containerStyle={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
           <View style={{flexDirection:"row"}}>
             <Image style={{height:40,width:40, borderRadius:8}} source={{uri:item.link.images[0]}}/>
@@ -27,6 +27,7 @@ export default ListItem = ({item}) => {
         </View>
         <Text style={{paddingTop:10, color:"#000"}}>{item.link.description.substring(1,item.link.description.length-1)}</Text>
         </Card>
+        </TouchableOpacity>
     }
   
     //Checking if the link is Reddit and is an image mediatype
@@ -34,7 +35,8 @@ export default ListItem = ({item}) => {
       var hyphen= item.link.title.indexOf("-");
       var subreddit = item.link.title.substring(0,hyphen-1);
       var redditTitle = item.link.title.substring(hyphen+2,item.link.title.length);
-      return <Card containerStyle={styles.cardStyle}>
+      return <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}>
+        <Card containerStyle={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
           <View style={{}}>
             <Text style={{paddingHorizontal:12, fontWeight:"bold", fontSize:16}}>{subreddit}</Text>
@@ -44,6 +46,7 @@ export default ListItem = ({item}) => {
         <Text style={{paddingVertical:15, color:"#000", fontSize:20,textAlign:"center"}}>{redditTitle}</Text>
         <Image style={{height:200,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>
         </Card>
+        </TouchableOpacity>
     }
   
      //Checking if the link is Reddit and is a website mediatype
@@ -51,7 +54,8 @@ export default ListItem = ({item}) => {
       var hyphen= item.link.title.indexOf("-");
       var subreddit = item.link.title.substring(0,hyphen-1);
       var redditTitle = item.link.title.substring(hyphen+2,item.link.title.length);
-      return <Card containerStyle={styles.cardStyle}>
+      return <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}>
+        <Card containerStyle={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
           <View style={{flexDirection:"row"}}>
             <Image style={{height:40,width:40, borderRadius:8}} source={{uri:item.link.images[0]}}/>
@@ -60,13 +64,14 @@ export default ListItem = ({item}) => {
         <MaterialCommunityIcons name="reddit" size={20}	color="#FF5700"/>
         </View>
         <Text style={{paddingVertical:15, color:"#000", fontSize:20,textAlign:"center"}}>{redditTitle}</Text>
-        
         </Card>
+        </TouchableOpacity>
     }
     
   //Checking if the link is a song from Apple Music
   if(url.substring(0,19)==='https://music.apple' && item.link.mediaType==='music.song'){
-    return <Card containerStyle={styles.cardStyle}>
+    return <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}>
+      <Card containerStyle={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
           <View style={{flexDirection:"row",flex:1, flexWrap:"wrap"}}>
             <Text style={{ fontWeight:"bold", fontSize:16}}>{item.link.title}</Text>
@@ -76,11 +81,12 @@ export default ListItem = ({item}) => {
         <Image style={{height:200,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>
         <Text style={{paddingTop:10, color:"#000"}}>{item.link.description.substring(0,item.link.description.indexOf("."))}</Text>
         </Card>
+        </TouchableOpacity>
   }
   
   //Checking if the link is a song from Spotify
   if(url.substring(0,20)==='https://open.spotify' && item.link.mediaType==='music.song'){
-    return <Card containerStyle={styles.cardStyle}>
+    return <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}><Card containerStyle={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between", paddingBottom:15}}>
           <View style={{flexDirection:"row",flex:1, flexWrap:"wrap"}}>
             <Text style={{ fontWeight:"bold", fontSize:16}}>{item.link.title}</Text>
@@ -90,12 +96,13 @@ export default ListItem = ({item}) => {
         <Image style={{height:200,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>
         <Text style={{paddingTop:10, color:"#000"}}>{item.link.description.substring(0,item.link.description.length-11)}</Text>
         </Card>
+        </TouchableOpacity>
   }
   
   //Checking if a link is from Instagram
   
   if(url.substring(0,21)==='https://www.instagram' && item.link.mediaType==='photo'){
-    return <Card containerStyle={styles.cardStyle}>
+    return <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}><Card containerStyle={styles.cardStyle}>
     <View style={{flexDirection:"row", justifyContent:"space-between", paddingBottom:15}}>
       <View style={{flexDirection:"row",flex:1, flexWrap:"wrap"}}>
         <Text style={{ fontWeight:"bold"}}>{item.link.title.substring(item.link.title.indexOf(":")+2,item.link.title.length-1)}</Text>
@@ -105,34 +112,47 @@ export default ListItem = ({item}) => {
     <Image style={{height:306,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>
     <Text style={{paddingTop:10, color:"#000"}}>{item.link.description}</Text>
     </Card>
+    </TouchableOpacity>
   }
   
+  //Checking if a link is from Youtube 
   
     switch(item.link.mediaType){
       case 'article':
-       return  <Card containerStyle={styles.cardStyle}>
+       return  <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}>
+         <Card containerStyle={styles.cardStyle}>
          <View style={{flexDirection:"row", justifyContent:"space-between"}}>
           <View style={{flexDirection:"row", flex:1, flexWrap:"wrap"}}>
             <Text style={{fontWeight:"bold", fontSize:16}}>{item.link.title}</Text>
           </View>
+          <View style={{paddingTop:15}}></View>
           <Image style={{height:20,width:20}} source={{uri:item.link.favicons[0]}}/>
          </View>
+         <View style={{paddingTop:15}}></View>
          <Image style={{height:200,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>
          <Text>{item.link.description}</Text>
          </Card>
+         </TouchableOpacity>
       case 'image':
-          return  <Card containerStyle={styles.cardStyle} title={item.link.title} image={{uri:item.link.images[0]}}><Text>{item.link.description}</Text></Card>
+          return  <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}>
+            <Card containerStyle={styles.cardStyle} title={item.link.title} image={{uri:item.link.images[0]}}>
+            <Text>{item.link.description}</Text>
+            </Card>
+            </TouchableOpacity>
       
       case 'website':
-        return  <Card containerStyle={styles.cardStyle}>
+        return  <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}>
+          <Card containerStyle={styles.cardStyle}>
           <View style={{flexDirection:"row", justifyContent:"space-between"}}>
            <View style={{flexDirection:"row", flex:1, flexWrap:"wrap"}}>
              <Text style={{ fontWeight:"bold", fontSize:16}}>{item.link.title}</Text>
            </View>
            <Image style={{height:20,width:20}} source={{uri:item.link.favicons[0]}}/>
           </View>
+          <View style={{paddingTop:15}}></View>
           <Text>{item.link.description}</Text>
           </Card>
+          </TouchableOpacity>
   
   
       case 'video':
@@ -140,8 +160,19 @@ export default ListItem = ({item}) => {
       case 'audio':
       
       default:
-        return <Card style={styles.containerStyle}>
-          <View style={{paddingVertical:20}}><Text>{item.link.url}</Text></View></Card>
+        return <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}>
+          <Card containerStyle={styles.cardStyle}>
+          <View style={{flexDirection:"row", justifyContent:"space-between"}}>
+           <View style={{flexDirection:"row", flex:1, flexWrap:"wrap"}}>
+             {item.link.title?<Text style={{ fontWeight:"bold", fontSize:16}}>{item.link.title}</Text>:null}
+           </View>
+           {item.link.favicons[0]?<Image style={{height:20,width:20}} source={{uri:item.link.favicons[0]}}/>:null}
+          </View>
+          <View style={{paddingTop:15}}></View>
+          {item.link.images[0]?<Image style={{height:200,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>:null}
+          <Text>{item.link.description}</Text>
+          </Card>
+          </TouchableOpacity>
     }
   
   }
