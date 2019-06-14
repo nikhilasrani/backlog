@@ -54,6 +54,9 @@ export default class HomeScreen extends React.Component {
   }
 _fetchUserLinks = () => {
   var user = firebase.auth().currentUser;
+  if(!user){
+    this.props.navigation.navigate("Auth")
+  }
     var that = this;
     const {page, seed} = that.state;
     that.setState({loading:true});
@@ -62,6 +65,7 @@ _fetchUserLinks = () => {
         console.log(snapshot.val());
         //^ Firebase response as a JSON Object
         if(!snapshot.val()){
+          that.setState({loading:false,refreshing:false});
         return;
         }
         const linksToArray =Object.entries(snapshot.val()).map(item => ({...item[1], key: item[0]}));
@@ -77,6 +81,16 @@ _renderItem = ({item}) => {
   return <ListItem item={item} />
 }
 _renderList = () => {
+  if(this.state.loading){
+    return(
+      <View style={styles.loadingViewStyle}>
+    <Image
+    source={require("../assets/images/LoadingCircle.gif")}
+    style={styles.onBoardingImage}
+    /></View>
+    )
+  }
+  // if firebase returned one or more list items successfully
 if(this.state.links.length){
   return <FlatList
   data={this.state.links}
@@ -87,7 +101,7 @@ if(this.state.links.length){
   ListFooterComponent={this.renderFooter}
   />
 }
-
+if(!this.state.loading && !this.state.links.length){
 return <View style={{justifyContent: 'center', alignItems: 'center'}}>
   <Text style={{fontSize:16, color:"#b3b3b3", paddingTop:15}}>No Saved Links</Text>
   <Image style={{height:300, width:300, resizeMode:"contain"}} source={require("../assets/images/Empty.png")}/>
@@ -104,6 +118,7 @@ return <View style={{justifyContent: 'center', alignItems: 'center'}}>
 
 </View>
 }
+}
 
   render() {
     return (
@@ -116,8 +131,18 @@ return <View style={{justifyContent: 'center', alignItems: 'center'}}>
 
 }
 
-
+const inputHeight = Math.round(window.window.height/2);
 const styles = StyleSheet.create({
+  onBoardingImage:{
+    height:50,
+    width:50,
+    alignItems:"center"
+},
+loadingViewStyle: {
+    paddingTop:inputHeight,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   textStyle:{
   },
   imageStyle:{
