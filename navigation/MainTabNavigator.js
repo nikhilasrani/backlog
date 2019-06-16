@@ -29,38 +29,38 @@ const RouteConfig = {
           size={size}
         />)})
   },
-Import:{
-  screen:ImportScreen,
-  navigationOptions: () => ({
-  title: 'Import',
-  tabBarLabel: 'Import',
-    tabBarIcon:({tintColor}) => (
-      <Feather
-					name="server"
-					color={tintColor}
-					size={size}
-				/>
-    )
-  })},
+// Import:{
+//   screen:ImportScreen,
+//   navigationOptions: () => ({
+//   title: 'Import',
+//   tabBarLabel: 'Import',
+//     tabBarIcon:({tintColor}) => (
+//       <Feather
+// 					name="server"
+// 					color={tintColor}
+// 					size={size}
+// 				/>
+//     )
+//   })},
   Add: {
     screen: HomeScreen,
     navigationOptions: () => ({
       tabBarButtonComponent: () => (
         <AddButton/>)})
       },
-  Export:{
-    screen:ExportScreen,
-          navigationOptions: () => ({
-            title: 'Export',
-            tabBarLabel: 'Export',
-            tabBarIcon:({tintColor}) => (
-              <Feather
-                  name="search"
-                  color={tintColor}
-                  size={size}
-                />
-            )
-          })},
+  // Export:{
+  //   screen:ExportScreen,
+  //         navigationOptions: () => ({
+  //           title: 'Export',
+  //           tabBarLabel: 'Export',
+  //           tabBarIcon:({tintColor}) => (
+  //             <Feather
+  //                 name="search"
+  //                 color={tintColor}
+  //                 size={size}
+  //               />
+  //           )
+  //         })},
           SettingsStack: {
             screen:createStackNavigator({SettingsScreen,
             navigationOptions: () => ({
