@@ -60,14 +60,12 @@ _fetchUserLinks = () => {
     that.setState({loading:true});
     if (user != null) {
       return firebase.database().ref(`users/${user.uid}/savedLinks/`).once('value', function(snapshot){
-        console.log(snapshot.val());
         //^ Firebase response as a JSON Object
         if(!snapshot.val()){
           that.setState({loading:false,refreshing:false});
         return;
         }
         const linksToArray =Object.entries(snapshot.val()).map(item => ({...item[1], key: item[0]}));
-        console.log(linksToArray);
       
         // ^ JSON Object converted to an Array of Objects with the unique value as a key
         that.setState({links:linksToArray,loading:false, refreshing:false});

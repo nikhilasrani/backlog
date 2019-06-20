@@ -16,6 +16,7 @@ import {
   
   import { Feather,MaterialCommunityIcons } from '@expo/vector-icons';
   import Modal from "react-native-modal";
+  import RoundButton from "./RoundButton"
   import CloseButton from "./CloseButton"
   
 
@@ -28,13 +29,15 @@ export default ListItem = ({item}) => {
   
   var url=item.link.url.toString();
 
+_itemDelete = () => {
+
+}
+
   _renderModalContent = () => (
-      <TouchableOpacity style={{flex:1}} onPress={()=> updateModalVisibility(null)}>
 		<View style={styles.modalContent}>
             <CloseButton onPress={()=> updateModalVisibility(null)}/>
-		  <Text>Paste the link you want to save here</Text>
+		  <RoundButton color={"red"} title={"Delete"} titleColor={"white"} onPress={this._itemDelete}/>
 		</View>
-        </TouchableOpacity>
 	  );
       
     //Checking if the link is Twitter 
