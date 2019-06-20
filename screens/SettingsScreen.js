@@ -9,14 +9,12 @@ import {
   Alert,
 } from 'react-native';
 import * as firebase from "firebase"
-import window from "../constants/Layout"
-import {Feather} from "@expo/vector-icons"
 import Modal from 'react-native-modal';
+import RoundButton from "../components/RoundButton"
 
 
 export default class Settings extends React.Component {
   static navigationOptions = {
-   // header: null,
     title:"Profile"
   };
   state = {
@@ -85,31 +83,19 @@ export default class Settings extends React.Component {
                      </View>
                      </View> 
                      <View style={{paddingTop:75, alignItems:"center"}}>
-                     <TouchableOpacity
-                    style={styles.loginButton}
-                    onPress={this.onEmailVerificationPress}>
-                    <Text style={styles.loginButtonText}>Verify Email</Text>
-                    </TouchableOpacity>
+                       <RoundButton wide title={"Verify Email"} onPress={this.onEmailVerificationPress}/>
                     <View style={{paddingTop:25}}></View>
         <Text>Click on the sign out button to sign out</Text>
         <View style={{paddingTop:25}}></View>
-        <TouchableOpacity
-                    style={styles.loginButton}
-                    onPress={this.onSignoutPress}  >
-                    <Text style={styles.loginButtonText}>Logout</Text>
-                    </TouchableOpacity>
-                    <View style={{paddingTop:25}}>
-                    <TouchableOpacity
-                    style={styles.loginButton}
-                    onPress={() => this.setState({ visibleModal: 1 })}>
-                    <Text style={styles.loginButtonText}>View Credits</Text>
-                    </TouchableOpacity>
-                    </View>  
-                    <View style={{paddingTop:25}}>
-                      </View>
-                    </View>
-                    <Modal isVisible={this.state.visibleModal === 1}>
-                    {this._renderModalContent()}
+        <RoundButton wide title={"Sign Out"} onPress={this.onSignoutPress}/>
+        <View style={{paddingTop:25}}>
+        <RoundButton wide title={"View Credits"} onPress={() => this.setState({ visibleModal: 1 })}/>
+        </View>  
+        <View style={{paddingTop:25}}>
+        </View>
+        </View>
+    <Modal isVisible={this.state.visibleModal === 1}>
+      {this._renderModalContent()}
         </Modal>
       </View>
     );
@@ -118,20 +104,7 @@ export default class Settings extends React.Component {
 
 }
 
-const inputWidth=window.window.width-60;
-
 const styles = StyleSheet.create({
-    loginButton:{
-        width:inputWidth,
-        backgroundColor: "#fec105",
-        borderRadius: 30,
-        paddingHorizontal: 30,
-        paddingVertical: 15,
-    },
-    loginButtonText:{
-        textAlign:"center",
-        color:"#000",
-    },
     imageStyle:{
       height:50,
       width:50,

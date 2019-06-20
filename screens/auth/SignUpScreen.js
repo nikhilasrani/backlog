@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text, TextInput, Alert, Image, TouchableOpacity} from "react-native";
 import * as firebase from "firebase";
 import window from "../../constants/Layout"
+import RoundButton from "../../components/RoundButton";
 
 export default class SignUpScreen extends React.Component{
 
@@ -67,12 +68,7 @@ export default class SignUpScreen extends React.Component{
              autoCorrect={false}/> 
 
              <View style={{paddingTop:15}}></View>
-             <TouchableOpacity
-                    style={styles.loginButton}
-                    onPress={this.onSignUpPress}>
-                    <Text style={styles.loginButtonText}>Create Account</Text>
-                    </TouchableOpacity>
-
+             <RoundButton wide title={"Create Account"} onPress={this.onSignUpPress} />
             <View style={{paddingTop:15}}></View>
 
                     <TouchableOpacity
@@ -100,17 +96,6 @@ const styles=  StyleSheet.create(
         imageStyle:{
             height:200,
             width:200
-            },
-        loginButton:{
-            width:inputWidth,
-            backgroundColor: "#fec105",
-            borderRadius: 30,
-            paddingHorizontal: 30,
-            paddingVertical: 15,
-            },
-        loginButtonText:{
-            textAlign:"center",
-            color:"#000",
             },
         plainTextButtonBG: {
             backgroundColor: "#fff",

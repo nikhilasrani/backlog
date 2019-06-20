@@ -2,12 +2,12 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,Image, FlatList, ActivityIndicator
 } from 'react-native';
 import * as firebase from "firebase"
 import ListItem from "../components/ListItem";
 import window from "../constants/Layout"
+import RoundButton from "../components/RoundButton"
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -108,12 +108,7 @@ return <View style={{justifyContent: 'center', alignItems: 'center'}}>
     Add a link using the '+' button below or refresh the feed to fetch your saved links
     </Text>
     <View style={{paddingTop:25}}></View>
-    <TouchableOpacity
-                    style={styles.loginButton}
-                    onPress={this.handleRefresh}>
-                    <Text style={styles.loginButtonText}>Refresh Feed</Text>
-                    </TouchableOpacity>
-
+    <RoundButton onPress={this.handleRefresh} title={"Refresh Feed"} />
 </View>
 }
 }
@@ -129,7 +124,6 @@ return <View style={{justifyContent: 'center', alignItems: 'center'}}>
 
 }
 
-const inputHeight = Math.round(window.window.height/2);
 const styles = StyleSheet.create({
   onBoardingImage:{
     height:50,
@@ -146,16 +140,6 @@ loadingViewStyle: {
   imageStyle:{
     height:200,
     width:200
-},
-loginButton:{
-  backgroundColor: "#fec105",
-  borderRadius: 30,
-  paddingHorizontal: 30,
-  paddingVertical: 15,
-},
-loginButtonText:{
-  textAlign:"center",
-  color:"#000",
 },
 roundButton:{
   backgroundColor: "#fec105",

@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TextInput, Alert,Image, TouchableOpacity} from 
 import * as firebase from "firebase";
 import window from "../../constants/Layout"
 import {Facebook} from "expo"
+import RoundButton from "../../components/RoundButton";
 
 export default class LoginScreen extends React.Component{
 
@@ -74,12 +75,7 @@ onForgotPasswordPress = () => {
              autoCapitalize="none"
              autoCorrect={false}/>
             <View style={{paddingTop:15}}></View>
-            
-            <TouchableOpacity
-            style={styles.loginButton}
-            onPress={this.onLoginPress}  >
-            <Text style={styles.loginButtonText}>Login</Text>
-            </TouchableOpacity>
+            <RoundButton wide title={"Login"} onPress={this.onLoginPress} />
             <View style={{paddingTop:25}}></View>
             
             <View style={{flexDirection:"row"}}>
@@ -95,12 +91,13 @@ onForgotPasswordPress = () => {
             </TouchableOpacity>
               </View>
               <View style={{paddingTop:25}}></View>
-              <TouchableOpacity
-                    style={styles.facebookLoginButton}
-                    onPress={()=>this.loginWithFacebook()}  >
-                    <Text style={styles.facebookLoginButtonText}>Login with Facebook</Text>
-                    </TouchableOpacity>
-                    <View style={{paddingTop:25}}></View>
+              <RoundButton 
+              wide 
+              title={"Login with Facebook"} 
+              onPress={()=>this.loginWithFacebook()}
+              color={"#1976f2"}
+              titleColor={"#fff"} />
+            <View style={{paddingTop:25}}></View>
         </View>
     }
 }
@@ -121,17 +118,6 @@ const styles=  StyleSheet.create(
             width:inputWidth,
             height:300
         },
-        loginButton:{
-            width:inputWidth,
-            backgroundColor: "#fec105",
-            borderRadius: 30,
-            paddingHorizontal: 30,
-            paddingVertical: 15,
-        },
-        loginButtonText:{
-            textAlign:"center",
-            color:"#000",
-        },
         plainTextButtonBG: {
             backgroundColor: "#fff",
             paddingHorizontal: 30,
@@ -140,18 +126,6 @@ const styles=  StyleSheet.create(
             },
         plainTextButtonText: {
             color: "#000",
-            },
-            facebookLoginButton:{
-                width:inputWidth,
-                backgroundColor: "#3b5998",
-                borderRadius: 30,
-                paddingHorizontal: 30,
-                paddingVertical: 15,
-            },
-            facebookLoginButtonText:{
-                textAlign:"center",
-                color:"#fff",
-            }
-            
+            },        
     }
 );

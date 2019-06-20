@@ -8,7 +8,8 @@ import {
     Linking
   } from 'react-native';
   import {Card} from "react-native-elements";
-  import { MaterialCommunityIcons } from '@expo/vector-icons';
+  
+  import { Feather,MaterialCommunityIcons } from '@expo/vector-icons';
   import Modal from "react-native-modal";
   
 
@@ -20,10 +21,27 @@ export default ListItem = ({item}) => {
   
   
   var url=item.link.url.toString();
+
+
+  _renderCloseButton = (text, onPress) => (
+    <TouchableOpacity onPress={onPress}>
+      
+      <Feather
+              name="x"
+              color="#A5A8B0"
+              size={30}
+            />
+    </TouchableOpacity>
+  );
+
   _renderModalContent = () => (
+      <TouchableOpacity style={{flex:1}} onPress={()=> updateModalVisibility(null)}>
 		<View style={styles.modalContent}>
+            <View style={{position:"absolute",top:0, right:0}}>
+            {this._renderCloseButton('Close', ()=> updateModalVisibility(null))}</View>
 		  <Text>Paste the link you want to save here</Text>
 		</View>
+        </TouchableOpacity>
 	  );
       
     //Checking if the link is Twitter 

@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text, TextInput, Alert, Image, TouchableOpacity} from "react-native";
 import * as firebase from "firebase";
+import RoundButton from "../../components/RoundButton"
 import window from "../../constants/Layout"
 
 export default class ForgotPasswordScreen extends React.Component{
@@ -41,12 +42,7 @@ this.props.navigation.navigate("Login")
             autoCorrect={false}/>
 
             <View style={{paddingTop:15}}></View>
-                    <TouchableOpacity
-                    style={styles.loginButton}
-                    onPress={this.onResetPasswordPress}>
-                    <Text style={styles.loginButtonText}>Reset Password</Text>
-                    </TouchableOpacity>
-
+            <RoundButton wide title={"Reset Password"} onPress={this.onResetPasswordPress}/>
             <View style={{paddingTop:15}}></View>
 
                     <TouchableOpacity
@@ -74,17 +70,6 @@ const styles=  StyleSheet.create({
         height:200,
         width:200
     },
-    loginButton:{
-        width:inputWidth,
-        backgroundColor: "#fec105",
-        borderRadius: 30,
-        paddingHorizontal: 30,
-        paddingVertical: 15,
-        },
-    loginButtonText:{
-        textAlign:"center",
-        color:"#000",
-        },
     plainTextButtonBG: {
         backgroundColor: "#fff",
         paddingHorizontal: 30,
