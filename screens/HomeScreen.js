@@ -2,12 +2,14 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
-  View,Image, FlatList, ActivityIndicator
+  View,Image, FlatList, ActivityIndicator, TouchableOpacity, Linking
 } from 'react-native';
 import * as firebase from "firebase"
 import ListItem from "../components/ListItem";
 import window from "../constants/Layout"
 import RoundButton from "../components/RoundButton"
+import CloseButton from "../components/CloseButton"
+import Modal from "react-native-modal";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -23,6 +25,8 @@ export default class HomeScreen extends React.Component {
       seed:1,
       error:null,
       refreshing:false,
+      modalVisible:null,
+      selectedItemId: null,
     }
   }
  
@@ -72,9 +76,29 @@ _fetchUserLinks = () => {
       })}
 
 }
+_itemDelete = () => {
+  var user = firebase.auth().currentUser;
+firebase.database().ref(`/users/${user.uid}/savedLinks/${this.state.selectedItemId}`).remove();
+this.setState({modalVisible:null, selectedItemId:null});
+this._fetchUserLinks();
 
+}
+
+_renderModalContent = () => (
+  <View style={styles.modalContent}>
+    <CloseButton onPress={()=> this.setState({modalVisible:null, selectedItemId:null})}/>
+    <RoundButton color={"red"} title={"Delete"} titleColor={"white"} onPress={this._itemDelete}/>
+  </View>
+  );
 _renderItem = ({item}) => {
-  return <ListItem item={item} />
+  return  <View>
+    <TouchableOpacity
+    onPress={()=> Linking.openURL(item.link.url)}
+    onLongPress={()=> this.setState({modalVisible:1, selectedItemId:item.key})}
+    >
+    <ListItem item={item} />
+    </TouchableOpacity>
+  </View>
 }
 _renderList = () => {
   if(this.state.loading){
@@ -88,7 +112,7 @@ _renderList = () => {
   }
   // if firebase returned one or more list items successfully
 if(this.state.links.length){
-  return <FlatList
+  return <View><FlatList
   data={this.state.links}
   renderItem={this._renderItem}
   keyExtractor={(item,index)=>item.key}
@@ -96,6 +120,13 @@ if(this.state.links.length){
   onRefresh={this.handleRefresh}
   ListFooterComponent={this.renderFooter}
   />
+  <View style={styles.container}>
+        <Modal isVisible={this.state.modalVisible === 1}>
+              {this._renderModalContent()}
+            </Modal>
+          </View>
+          </View>
+          
 }
 if(!this.state.loading && !this.state.links.length){
 return <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -158,5 +189,22 @@ cardStyle: {
   marginLeft: 5,
   marginRight: 5,
   marginTop: 10,
-}
+},
+container: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+modalContent: {
+  backgroundColor: 'white',
+  padding: 22,
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: 4,
+  borderColor: 'rgba(0, 0, 0, 0.1)',
+},
+bottomModal: {
+  justifyContent: 'flex-end',
+  margin: 0,
+},
 });
