@@ -11,6 +11,7 @@ import {
 import * as firebase from "firebase"
 import Modal from 'react-native-modal';
 import RoundButton from "../components/RoundButton"
+import CloseButton from "../components/CloseButton"
 
 
 export default class Settings extends React.Component {
@@ -23,13 +24,13 @@ export default class Settings extends React.Component {
 
   _renderModalContent = () => (
     <View style={styles.modalContent}>
+      <CloseButton onPress={() => this.setState({ visibleModal: null })}/>
       <Text style={{fontSize:18,fontWeight:"bold"}}>Credits</Text>
       <Text>This Application is built using Open Source Software and Freely Licensed Illustrations and Graphics</Text>
       <Image style={{height:250, width:250}} source={require("../assets/images/OpenSource.png")}/>
       <Text>We would like to thank the respective creators for their work and contributions</Text>
       <Text>Illustrations: undraw.co</Text>
       <Text>Icons: Feather Icons</Text>
-      <RoundButton title={"Close"} onPress={() => this.setState({ visibleModal: null })}/>
     </View>
   );
 

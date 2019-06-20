@@ -1,8 +1,13 @@
+// INCOMPATIBLE WITH iOS
+// In Order to Make this compatible with iOS, we need to replace 
+// TouchableNativeFeedback with touchables that are compatible with iOS
+
 import React,{useState} from "react";
 import {
     StyleSheet,
     Text,
     TouchableOpacity,
+    TouchableNativeFeedback,
     View,
     Image,
     Linking
@@ -11,6 +16,7 @@ import {
   
   import { Feather,MaterialCommunityIcons } from '@expo/vector-icons';
   import Modal from "react-native-modal";
+  import CloseButton from "./CloseButton"
   
 
   
@@ -22,23 +28,10 @@ export default ListItem = ({item}) => {
   
   var url=item.link.url.toString();
 
-
-  _renderCloseButton = (text, onPress) => (
-    <TouchableOpacity onPress={onPress}>
-      
-      <Feather
-              name="x"
-              color="#A5A8B0"
-              size={30}
-            />
-    </TouchableOpacity>
-  );
-
   _renderModalContent = () => (
       <TouchableOpacity style={{flex:1}} onPress={()=> updateModalVisibility(null)}>
 		<View style={styles.modalContent}>
-            <View style={{position:"absolute",top:0, right:0}}>
-            {this._renderCloseButton('Close', ()=> updateModalVisibility(null))}</View>
+            <CloseButton onPress={()=> updateModalVisibility(null)}/>
 		  <Text>Paste the link you want to save here</Text>
 		</View>
         </TouchableOpacity>
@@ -47,7 +40,7 @@ export default ListItem = ({item}) => {
     //Checking if the link is Twitter 
     if(url.substring(0,15)==='https://twitter'){
       return <View>
-        <TouchableOpacity 
+        <TouchableNativeFeedback 
         onPress={()=> Linking.openURL(item.link.url)}
         onLongPress={()=> updateModalVisibility(1)}>
           <Card containerStyle={styles.cardStyle}>
@@ -60,7 +53,7 @@ export default ListItem = ({item}) => {
         </View>
         <Text style={{paddingTop:10, color:"#000"}}>{item.link.description.substring(1,item.link.description.length-1)}</Text>
         </Card>
-        </TouchableOpacity>
+        </TouchableNativeFeedback>
         <View style={styles.container}>
         <Modal isVisible={modalVisible === 1}>
               {this._renderModalContent()}
@@ -74,7 +67,7 @@ export default ListItem = ({item}) => {
       var hyphen= item.link.title.indexOf("-");
       var subreddit = item.link.title.substring(0,hyphen-1);
       var redditTitle = item.link.title.substring(hyphen+2,item.link.title.length);
-      return <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}>
+      return <TouchableNativeFeedback onPress={()=> Linking.openURL(item.link.url)}>
         <Card containerStyle={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
           <View style={{}}>
@@ -85,7 +78,7 @@ export default ListItem = ({item}) => {
         <Text style={{paddingVertical:15, color:"#000", fontSize:20,textAlign:"center"}}>{redditTitle}</Text>
         <Image style={{height:200,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>
         </Card>
-        </TouchableOpacity>
+        </TouchableNativeFeedback>
     }
   
      //Checking if the link is Reddit and is a website mediatype
@@ -93,7 +86,7 @@ export default ListItem = ({item}) => {
       var hyphen= item.link.title.indexOf("-");
       var subreddit = item.link.title.substring(0,hyphen-1);
       var redditTitle = item.link.title.substring(hyphen+2,item.link.title.length);
-      return <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}>
+      return <TouchableNativeFeedback onPress={()=> Linking.openURL(item.link.url)}>
         <Card containerStyle={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
           <View style={{flexDirection:"row"}}>
@@ -104,12 +97,12 @@ export default ListItem = ({item}) => {
         </View>
         <Text style={{paddingVertical:15, color:"#000", fontSize:20,textAlign:"center"}}>{redditTitle}</Text>
         </Card>
-        </TouchableOpacity>
+        </TouchableNativeFeedback>
     }
     
   //Checking if the link is a song from Apple Music
   if(url.substring(0,19)==='https://music.apple' && (item.link.mediaType==='music.song'||item.link.mediaType==='music.album')){
-    return <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}>
+    return <TouchableNativeFeedback onPress={()=> Linking.openURL(item.link.url)}>
       <Card containerStyle={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
           <View style={{flexDirection:"row",flex:1, flexWrap:"wrap"}}>
@@ -120,12 +113,12 @@ export default ListItem = ({item}) => {
         <Image style={{height:200,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>
         <Text style={{paddingTop:10, color:"#000"}}>{item.link.description.substring(0,item.link.description.indexOf("."))}</Text>
         </Card>
-        </TouchableOpacity>
+        </TouchableNativeFeedback>
   }
   
   //Checking if the link is a song from Spotify
   if(url.substring(0,20)==='https://open.spotify' && item.link.mediaType==='music.song'){
-    return <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}><Card containerStyle={styles.cardStyle}>
+    return <TouchableNativeFeedback onPress={()=> Linking.openURL(item.link.url)}><Card containerStyle={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between", paddingBottom:15}}>
           <View style={{flexDirection:"row",flex:1, flexWrap:"wrap"}}>
             <Text style={{ fontWeight:"bold", fontSize:16}}>{item.link.title}</Text>
@@ -135,13 +128,13 @@ export default ListItem = ({item}) => {
         <Image style={{height:200,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>
         <Text style={{paddingTop:10, color:"#000"}}>{item.link.description.substring(0,item.link.description.length-11)}</Text>
         </Card>
-        </TouchableOpacity>
+        </TouchableNativeFeedback>
   }
   
   //Checking if a link is from Instagram
   
   if(url.substring(0,21)==='https://www.instagram' && item.link.mediaType==='photo'){
-    return <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}><Card containerStyle={styles.cardStyle}>
+    return <TouchableNativeFeedback onPress={()=> Linking.openURL(item.link.url)}><Card containerStyle={styles.cardStyle}>
     <View style={{flexDirection:"row", justifyContent:"space-between", paddingBottom:15}}>
       <View style={{flexDirection:"row",flex:1, flexWrap:"wrap"}}>
         <Text style={{ fontWeight:"bold"}}>{item.link.title.substring(item.link.title.indexOf(":")+2,item.link.title.length-1)}</Text>
@@ -151,14 +144,14 @@ export default ListItem = ({item}) => {
     <Image style={{height:306,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>
     <Text style={{paddingTop:10, color:"#000"}}>{item.link.description}</Text>
     </Card>
-    </TouchableOpacity>
+    </TouchableNativeFeedback>
   }
   
   //Checking if a link is from Youtube 
   
     switch(item.link.mediaType){
       case 'article':
-       return  <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}>
+       return  <TouchableNativeFeedback onPress={()=> Linking.openURL(item.link.url)}>
          <Card containerStyle={styles.cardStyle}>
          <View style={{flexDirection:"row", justifyContent:"space-between"}}>
           <View style={{flexDirection:"row", flex:1, flexWrap:"wrap"}}>
@@ -171,16 +164,9 @@ export default ListItem = ({item}) => {
          <Image style={{height:200,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>
          <Text>{item.link.description}</Text>
          </Card>
-         </TouchableOpacity>
-      case 'image':
-          return  <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}>
-            <Card containerStyle={styles.cardStyle} title={item.link.title} image={{uri:item.link.images[0]}}>
-            <Text>{item.link.description}</Text>
-            </Card>
-            </TouchableOpacity>
-      
+         </TouchableNativeFeedback>
       case 'website':
-        return  <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}>
+        return  <TouchableNativeFeedback onPress={()=> Linking.openURL(item.link.url)}>
           <Card containerStyle={styles.cardStyle}>
           <View style={{flexDirection:"row", justifyContent:"space-between"}}>
            <View style={{flexDirection:"row", flex:1, flexWrap:"wrap"}}>
@@ -191,15 +177,15 @@ export default ListItem = ({item}) => {
           <View style={{paddingTop:15}}></View>
           <Text>{item.link.description}</Text>
           </Card>
-          </TouchableOpacity>
+          </TouchableNativeFeedback>
   
-  
+      case 'image':
       case 'video':
       case 'application':
       case 'audio':
       
       default:
-        return <TouchableOpacity onPress={()=> Linking.openURL(item.link.url)}>
+        return <TouchableNativeFeedback onPress={()=> Linking.openURL(item.link.url)}>
           <Card containerStyle={styles.cardStyle}>
           <View style={{flexDirection:"row", justifyContent:"space-between"}}>
            <View style={{flexDirection:"row", flex:1, flexWrap:"wrap"}}>
@@ -211,7 +197,7 @@ export default ListItem = ({item}) => {
           {item.link.images[0]?<Image style={{height:200,paddingTop:10, borderRadius:8, resizeMode:"contain"}} source={{uri:item.link.images[0]}}/>:null}
           <Text>{item.link.description}</Text>
           </Card>
-          </TouchableOpacity>
+          </TouchableNativeFeedback>
     }
   
   }

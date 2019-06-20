@@ -4,6 +4,7 @@ import Modal from "react-native-modal"
 import {Feather} from "@expo/vector-icons"
 import * as firebase from "firebase";
 import LinkPreview from 'react-native-link-preview';
+import CloseButton from "./CloseButton"
 
 // constants
 import {
@@ -41,7 +42,7 @@ class AddButton extends Component {
 	
 	  _renderModalContent = () => (
 		<View style={styles.modalContent}>
-			 <View style={{position:"absolute",top:0, right:0}}>{this._renderCloseButton('Close', () => this.setState({ visibleModal: null }))}</View>
+		<CloseButton onPress={() => this.setState({ visibleModal: null })}/>
 		  <Text>Paste the link you want to save here</Text>
 		  <TextInput value={this.state.enteredLink}
              onChangeText={(text) => {this.setState({enteredLink:text})}}
