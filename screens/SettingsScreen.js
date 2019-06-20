@@ -21,11 +21,6 @@ export default class Settings extends React.Component {
     visibleModal: null,
   };
 
-  _renderButton = (text, onPress) => (
-    <TouchableOpacity style={styles.loginButton} onPress={onPress}>
-        <Text style={styles.loginButtonText}>{text}</Text>
-    </TouchableOpacity>
-  );
   _renderModalContent = () => (
     <View style={styles.modalContent}>
       <Text style={{fontSize:18,fontWeight:"bold"}}>Credits</Text>
@@ -34,9 +29,7 @@ export default class Settings extends React.Component {
       <Text>We would like to thank the respective creators for their work and contributions</Text>
       <Text>Illustrations: undraw.co</Text>
       <Text>Icons: Feather Icons</Text>
-
-
-      {this._renderButton('Close', () => this.setState({ visibleModal: null }))}
+      <RoundButton title={"Close"} onPress={() => this.setState({ visibleModal: null })}/>
     </View>
   );
 
