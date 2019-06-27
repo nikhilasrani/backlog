@@ -93,9 +93,9 @@ this._fetchUserLinks();
 _renderModalContent = () => (
   <View style={styles.modalContent}>
     <CloseButton onPress={()=> this.setState({modalVisible:null, selectedItemId:null})}/>
-    <TouchableOpacity onPress={this._itemDelete}><Feather name="trash-2"
+    <TouchableOpacity onPress={this._itemDelete}><View style={{flexDirection:"row",alignContent:"flex-start"}}><Feather name="trash-2"
 				  color="#A5A8B0"
-				  size={30}/><Text>Delete</Text></TouchableOpacity>
+				  size={22}/><Text style={{paddingLeft:10,fontSize:20,color:"#A5A8B0"}}>Delete</Text></View></TouchableOpacity>
     
   </View>
   );
