@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import * as firebase from "firebase"
 import ListItem from "../components/ListItem";
+import {Feather} from "@expo/vector-icons"
 import window from "../constants/Layout"
 import RoundButton from "../components/RoundButton"
 import CloseButton from "../components/CloseButton"
@@ -92,7 +93,10 @@ this._fetchUserLinks();
 _renderModalContent = () => (
   <View style={styles.modalContent}>
     <CloseButton onPress={()=> this.setState({modalVisible:null, selectedItemId:null})}/>
-    <RoundButton color={"red"} title={"Delete"} titleColor={"white"} onPress={this._itemDelete}/>
+    <TouchableOpacity onPress={this._itemDelete}><Feather name="trash-2"
+				  color="#A5A8B0"
+				  size={30}/><Text>Delete</Text></TouchableOpacity>
+    
   </View>
   );
 _renderItem = ({item}) => {
@@ -126,7 +130,7 @@ if(this.state.links.length>0){
   ListFooterComponent={this.renderFooter}
   />
   <View style={styles.container}>
-        <Modal isVisible={this.state.modalVisible === 1}>
+        <Modal isVisible={this.state.modalVisible === 1} style={styles.bottomModal}>
               {this._renderModalContent()}
             </Modal>
           </View>

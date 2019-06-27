@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text, TextInput, Alert,Image, TouchableOpacity} from "react-native";
 import * as firebase from "firebase";
 import window from "../../constants/Layout"
-import {Facebook} from "expo"
+import * as Facebook from 'expo-facebook';
 import RoundButton from "../../components/RoundButton";
 
 export default class LoginScreen extends React.Component{
