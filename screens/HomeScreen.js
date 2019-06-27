@@ -78,7 +78,12 @@ _fetchUserLinks = () => {
 }
 _itemDelete = () => {
   var user = firebase.auth().currentUser;
+  if(this.state.links.length>1){
 firebase.database().ref(`/users/${user.uid}/savedLinks/${this.state.selectedItemId}`).remove();
+  }
+  if(this.state.links.length===1){
+    firebase.database().ref(`/users/${user.uid}/savedLinks/`).remove();
+  }
 this.setState({modalVisible:null, selectedItemId:null});
 this._fetchUserLinks();
 
@@ -111,7 +116,7 @@ _renderList = () => {
     )
   }
   // if firebase returned one or more list items successfully
-if(this.state.links.length){
+if(this.state.links.length>0){
   return <View><FlatList
   data={this.state.links}
   renderItem={this._renderItem}
@@ -128,7 +133,7 @@ if(this.state.links.length){
           </View>
           
 }
-if(!this.state.loading && !this.state.links.length){
+if(!this.state.loading && (!this.state.links.length||this.state.links.length===0)){
 return <View style={{justifyContent: 'center', alignItems: 'center'}}>
   <Text style={{fontSize:16, color:"#b3b3b3", paddingTop:15}}>No Saved Links</Text>
   <Image style={{height:300, width:300, resizeMode:"contain"}} source={require("../assets/images/Empty.png")}/>
