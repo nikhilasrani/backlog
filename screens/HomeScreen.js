@@ -2,7 +2,7 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
-  View,Image, FlatList, ActivityIndicator, TouchableOpacity, Linking
+  View,Image, FlatList, ActivityIndicator, TouchableOpacity, Linking, TextInput
 } from 'react-native';
 import * as firebase from "firebase"
 import ListItem from "../components/ListItem";
@@ -11,6 +11,8 @@ import window from "../constants/Layout"
 import RoundButton from "../components/RoundButton"
 import CloseButton from "../components/CloseButton"
 import Modal from "react-native-modal";
+import { FAB } from "react-native-paper";
+import LinkPreview from 'react-native-link-preview';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -28,6 +30,7 @@ export default class HomeScreen extends React.Component {
       refreshing:false,
       modalVisible:null,
       selectedItemId: null,
+      enteredLink:""
     }
   }
  
@@ -39,7 +42,7 @@ export default class HomeScreen extends React.Component {
   renderFooter = () => {
     if(!this.state.loading) return <View style={{paddingTop:35}}></View>;
     return(
-      <View style={{paddingVertical:30,}}>
+      <View style={{paddingVertical:30}}>
 
         <ActivityIndicator animating size="large"/>
       </View>
@@ -112,7 +115,7 @@ _renderItem = ({item}) => {
 _renderList = () => {
   if(this.state.loading){
     return(
-      <View style={styles.loadingViewStyle}>
+      <View style={[{flex:1},styles.loadingViewStyle]}>
     <Image
     source={require("../assets/images/LoadingCircle.gif")}
     style={styles.onBoardingImage}
@@ -150,11 +153,74 @@ return <View style={{justifyContent: 'center', alignItems: 'center'}}>
 </View>
 }
 }
+// Methods from the Add Link Button 
+_onSubmitLinkPress = (text, onPress) => (
+  <TouchableOpacity onPress={onPress}>
+    <View style={styles.button}>
+    <Text>{text}</Text>
+    </View>
+  </TouchableOpacity>
+  );
+
+
+    _renderAddLinkModalContent = () => (
+      <View style={styles.modalContent}>
+      <CloseButton onPress={() => this.setState({ modalVisible: null })}/>
+        <Text>Paste the link you want to save here</Text>
+        <TextInput value={this.state.enteredLink}
+               onChangeText={(text) => {this.setState({enteredLink:text})}}
+               placeholder="Entered Link..."
+               autoCapitalize="none"
+               autoCorrect={false}
+         selectionColor={"#fec105"}
+         style={{
+          width:250,
+          borderRadius: 30,
+          paddingHorizontal: 30,
+          paddingVertical: 15,
+          borderBottomWidth:1
+         }}
+         ></TextInput>
+        {this._onSubmitLinkPress('Submit Link', () => {
+          var user = firebase.auth().currentUser;
+          const {enteredLink} =this.state;
+         if(enteredLink){
+          LinkPreview.getPreview(enteredLink.toString())
+          .then(data => {
+            firebase.database().ref(`users/${user.uid}/savedLinks/`).push({
+              link:data
+            }).then((data)=>{
+              //success callback
+              console.log('data '+data)
+              this.setState({enteredLink:""});
+            }).catch((error)=> {
+              //error callback
+              console.log('error '+error)
+            }) 
+          });
+        
+        }
+         
+          this.setState({ modalVisible: null })
+      })}
+      </View>
+      );
+    
+  
+
 
   render() {
     return (
-      <View style={{ alignItems:"center"}}>
+      <View style={{ flex:1,alignItems:"center"}}>
         {this._renderList()}
+        <FAB
+    style={styles.fab}
+    icon="add"
+    onPress={() => this.setState({ modalVisible: 2 })}
+  />
+  <Modal isVisible={this.state.modalVisible === 2}>
+          {this._renderAddLinkModalContent()}
+        </Modal>
       </View>
     );
   }
@@ -215,5 +281,12 @@ modalContent: {
 bottomModal: {
   justifyContent: 'flex-end',
   margin: 0,
+},
+fab: {
+  position: 'absolute',
+  margin: 16,
+  right: 0,
+  bottom: 0,
+  backgroundColor:"#fec105"
 },
 });
