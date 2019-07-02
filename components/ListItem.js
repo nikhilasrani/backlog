@@ -5,7 +5,7 @@ import {
     View,
     Image,
   } from 'react-native';
-  import {Card} from "react-native-elements";
+  import {Card} from "react-native-paper";
   
   import { Feather,MaterialCommunityIcons } from '@expo/vector-icons';
   
@@ -13,7 +13,7 @@ export default ListItem = ({item}) => {
   var url=item.link.url.toString(); 
     //Checking if the link is Twitter 
     if(url.substring(0,15)==='https://twitter'){
-      return <Card containerStyle={styles.cardStyle}>
+      return <Card style={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
           <View style={{flexDirection:"row"}}>
             <Image style={{height:40,width:40, borderRadius:8}} source={{uri:item.link.images[0]}}/>
@@ -31,7 +31,7 @@ export default ListItem = ({item}) => {
       var hyphen= item.link.title.indexOf("-");
       var subreddit = item.link.title.substring(0,hyphen-1);
       var redditTitle = item.link.title.substring(hyphen+2,item.link.title.length);
-      return <Card containerStyle={styles.cardStyle}>
+      return <Card style={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
           <View style={{}}>
             <Text style={{paddingHorizontal:12, fontWeight:"bold", fontSize:16}}>{subreddit}</Text>
@@ -48,7 +48,7 @@ export default ListItem = ({item}) => {
       var hyphen= item.link.title.indexOf("-");
       var subreddit = item.link.title.substring(0,hyphen-1);
       var redditTitle = item.link.title.substring(hyphen+2,item.link.title.length);
-      return  <Card containerStyle={styles.cardStyle}>
+      return  <Card style={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
           <View style={{flexDirection:"row"}}>
             <Image style={{height:40,width:40, borderRadius:8}} source={{uri:item.link.images[0]}}/>
@@ -62,7 +62,7 @@ export default ListItem = ({item}) => {
     
   //Checking if the link is a song from Apple Music
   if(url.substring(0,19)==='https://music.apple' && (item.link.mediaType==='music.song'||item.link.mediaType==='music.album')){
-    return  <Card containerStyle={styles.cardStyle}>
+    return  <Card style={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
           <View style={{flexDirection:"row",flex:1, flexWrap:"wrap"}}>
             <Text style={{ fontWeight:"bold", fontSize:16}}>{item.link.title}</Text>
@@ -76,7 +76,7 @@ export default ListItem = ({item}) => {
   
   //Checking if the link is a song from Spotify
   if(url.substring(0,20)==='https://open.spotify' && item.link.mediaType==='music.song'){
-    return <Card containerStyle={styles.cardStyle}>
+    return <Card style={styles.cardStyle}>
         <View style={{flexDirection:"row", justifyContent:"space-between", paddingBottom:15}}>
           <View style={{flexDirection:"row",flex:1, flexWrap:"wrap"}}>
             <Text style={{ fontWeight:"bold", fontSize:16}}>{item.link.title}</Text>
@@ -91,7 +91,7 @@ export default ListItem = ({item}) => {
   //Checking if a link is from Instagram
   
   if(url.substring(0,21)==='https://www.instagram' && item.link.mediaType==='photo'){
-    return <Card containerStyle={styles.cardStyle}>
+    return <Card style={styles.cardStyle}>
     <View style={{flexDirection:"row", justifyContent:"space-between", paddingBottom:15}}>
       <View style={{flexDirection:"row",flex:1, flexWrap:"wrap"}}>
         <Text style={{ fontWeight:"bold"}}>{item.link.title.substring(item.link.title.indexOf(":")+2,item.link.title.length-1)}</Text>
