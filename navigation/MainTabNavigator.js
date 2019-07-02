@@ -1,95 +1,45 @@
 import React from 'react';
-import { Platform, AsyncStorage } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-import AddButton from "../components/AddButton"
+import { createStackNavigator} from 'react-navigation';
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from "../screens/SettingsScreen";
-import ImportScreen from "../screens/ImportScreen";
-import ExportScreen from "../screens/ExportScreen";
+import {Button} from "react-native-paper"
 
-
-// import icons
-import {Feather} from "@expo/vector-icons"
-const size = 26;
-
-
-const RouteConfig = {
-  HomeStack:{
-    screen:createStackNavigator({HomeScreen,
-    navigationOptions: () => ({
-      headerTitle: 'Home',
-    })
-  },
-  ),navigationOptions: () => ({
-    tabBarLabel: 'Home',
-    tabBarIcon:({tintColor}) => (
-      <Feather
-          name="home"
-          color={tintColor}
-          size={size}
-        />)})
-  },
-// Import:{
-//   screen:ImportScreen,
-//   navigationOptions: () => ({
-//   title: 'Import',
-//   tabBarLabel: 'Import',
-//     tabBarIcon:({tintColor}) => (
-//       <Feather
-// 					name="server"
-// 					color={tintColor}
-// 					size={size}
-// 				/>
-//     )
-//   })},
-  Add: {
+const RouteConfigs = {
+  Home: {
     screen: HomeScreen,
-    navigationOptions: () => ({
-      tabBarButtonComponent: () => (
-        <AddButton/>)})
-      },
-  // Export:{
-  //   screen:ExportScreen,
-  //         navigationOptions: () => ({
-  //           title: 'Export',
-  //           tabBarLabel: 'Export',
-  //           tabBarIcon:({tintColor}) => (
-  //             <Feather
-  //                 name="search"
-  //                 color={tintColor}
-  //                 size={size}
-  //               />
-  //           )
-  //         })},
-          SettingsStack: {
-            screen:createStackNavigator({SettingsScreen,
-            navigationOptions: () => ({
-              headerTitle: 'Profile',
-            })
-          },
-          ),navigationOptions: () => ({
-            tabBarLabel: 'Profile',
-            tabBarIcon:({tintColor}) => (
-              <Feather
-                  name="user"
-                  color={tintColor}
-                  size={size}
-                />)})
-          }
+    navigationOptions:({navigation}) => ({
+    headerTitle: "Backlog",
+    headerRight: (
+      <Button
+        icon="settings"
+        color="#000"
+        onPress={() => navigation.navigate("Settings")}
+      />
+
+    )
+  })
+},
+  Settings: {
+    screen:SettingsScreen,
+    navigationOptions:({navigation}) => ({
+      headerTitle:"Settings",
+      headerLeft:(
+      <Button
+          icon="arrow-back"
+          color="#000"
+          onPress={() => navigation.navigate("Home")}
+        />
+      )
+    })
+  }
 }
 
-const BottomNavigatorConfig = {
+const StackNavigatorConfig = {
   navigationOptions: {
     header: null,
   },
-	tabBarOptions: {
-		activeTintColor: '#000',
-		inactiveTintColor: 'rgb(200, 200, 200)',
-		style: {
-			backgroundColor: '#fff',
-		},
-		showLabel: false,
-	},
-};
+  initialRouteName:"Home",
+}
 
-export default createBottomTabNavigator(RouteConfig, BottomNavigatorConfig);
+
+export default createStackNavigator(RouteConfigs, StackNavigatorConfig);
