@@ -1,6 +1,8 @@
 # Backlog
 A React Native application that allows you to save context rich URLs for later.
 
+![Backlog Portfolio Image](https://raw.githubusercontent.com/nikhilasrani/backlog/master/assets/images/Backlog_Portfolio-min.png)
+
 
 
 
