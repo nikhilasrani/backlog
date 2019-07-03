@@ -26,7 +26,8 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.nikhilasrani.backlog"
+      "package": "com.nikhilasrani.backlog",
+      "versionCode": 2 
     },
     "description": "",
     "githubUrl": "https://github.com/nikhilasrani/backlog"
