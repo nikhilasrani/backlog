@@ -61,7 +61,7 @@ expo build:android
 expo build:ios
 ```
 
-##Contributing
+## Contributing
 
 Feel free to reach out to me or send in a pull request in case you'd like to contribute to this project.
 
