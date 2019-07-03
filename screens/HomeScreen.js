@@ -181,7 +181,7 @@ _onSubmitLinkPress = (text, onPress) => (
           borderBottomWidth:1
          }}
          ></TextInput>
-        {this._onSubmitLinkPress('Submit Link', () => {
+         <RoundButton title="Submit Link" onPress={() => {
           var user = firebase.auth().currentUser;
           const {enteredLink} =this.state;
          if(enteredLink){
@@ -202,7 +202,7 @@ _onSubmitLinkPress = (text, onPress) => (
         }
          
           this.setState({ modalVisible: null })
-      })}
+      } }/>
       </View>
       );
     
